@@ -1,6 +1,1 @@
-fastapi
-uvicorn
-pydantic
-pandas
-geopandas
-python-multipart
+=
