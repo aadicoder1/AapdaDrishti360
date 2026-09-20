@@ -1,0 +1,7 @@
+village,site,suitability_score,safety_score,capacity_score,access_score,straight_line_km,capacity_sufficient,resource_gap,hazard_note
+Kakatpur,Bhubaneswar,79.3,100.0,100.0,17.4,49.6,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Kakatpur,Bhadrak,75.0,100.0,100.0,0.0,124.2,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Kakatpur,Berhampur,75.0,100.0,100.0,0.0,165.5,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Kakatpur,Nimapada,63.0,100.0,20.5,63.4,22.0,False,"shelter short by 2972 people; water short by 443,300L/day; sanitation short by 197 units",No significant hazard proximity detected.
+Kakatpur,Pipili,53.9,100.0,18.8,29.3,42.4,False,"shelter short by 3022 people; water short by 453,300L/day; sanitation short by 202 units",No significant hazard proximity detected.
+Kakatpur,Puri,51.9,25.8,100.0,26.5,44.1,True,No resource gaps - capacity sufficient,"Inside cyclone buffer zone 'Puri Fani landfall zone' (2019, 7yr ago): Cyclone Fani made landfall at Puri, 3 May 2019, 200kmph winds, 1.5m storm surge; 21 deaths and 189,095 houses damaged in Puri district"

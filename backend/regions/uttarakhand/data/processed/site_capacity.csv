@@ -1,0 +1,4 @@
+site_name,town_population,households,est_shelter_capacity,est_water_capacity_liters_day,est_sanitation_units,capacity_source
+Rudraprayag,9313,2200,600,90000,40,estimated_from_town_size
+Guptkashi,1130,277,150,25000,12,census_2011_verified_population_estimated_capacity
+Ukhimath,3000,650,300,45000,20,estimated_town_scale

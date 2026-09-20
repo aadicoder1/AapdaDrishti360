@@ -1,0 +1,7 @@
+village,site,suitability_score,safety_score,capacity_score,access_score,straight_line_km,capacity_sufficient,resource_gap,hazard_note
+Udayakani,Nimapada,87.5,100.0,100.0,50.2,29.9,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Udayakani,Pipili,79.0,100.0,100.0,15.8,50.5,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Udayakani,Bhubaneswar,76.4,100.0,100.0,5.6,56.6,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Udayakani,Berhampur,75.0,100.0,100.0,0.0,172.9,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Udayakani,Bhadrak,75.0,100.0,100.0,0.0,123.0,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Udayakani,Puri,48.8,25.8,100.0,14.0,51.6,True,No resource gaps - capacity sufficient,"Inside cyclone buffer zone 'Puri Fani landfall zone' (2019, 7yr ago): Cyclone Fani made landfall at Puri, 3 May 2019, 200kmph winds, 1.5m storm surge; 21 deaths and 189,095 houses damaged in Puri district"

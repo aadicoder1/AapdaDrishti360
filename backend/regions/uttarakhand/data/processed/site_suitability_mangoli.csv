@@ -1,0 +1,4 @@
+village,site,suitability_score,safety_score,capacity_score,access_score,straight_line_km,capacity_sufficient,resource_gap,hazard_note
+Mangoli,Ukhimath,95.7,100.0,96.3,87.9,7.2,False,"shelter short by 10 people; water short by 1,500L/day; sanitation short by 1 units",No significant hazard proximity detected.
+Mangoli,Rudraprayag,86.5,73.6,100.0,88.4,7.0,True,No resource gaps - capacity sufficient,1.42km from landslide zone 'Bheti-Pondar-Sem landslide zone' (1998)
+Mangoli,Guptkashi,60.8,44.6,53.1,97.3,1.6,False,"shelter short by 160 people; water short by 21,500L/day; sanitation short by 9 units",0.44km from landslide zone 'Okhimath (Mangoli-Chunni-Semla) landslide zone' (2012)

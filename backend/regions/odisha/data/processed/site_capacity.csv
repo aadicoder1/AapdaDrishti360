@@ -1,0 +1,7 @@
+site_name,town_population,households,est_shelter_capacity,est_water_capacity_liters_day,est_sanitation_units,capacity_source
+Puri,200564,41140,5000,750000,330,census_2011_verified_population_estimated_capacity
+Bhubaneswar,837737,190000,8000,1200000,530,census_2011_population_estimated_capacity
+Nimapada,19289,4286,750,115000,52,census_2011_verified_population_estimated_capacity
+Pipili,17623,3916,700,105000,47,census_2011_verified_population_estimated_capacity
+Berhampur,355823,79072,15000,2200000,950,census_2011_verified_population_estimated_capacity
+Bhadrak,107463,23881,4500,650000,300,census_2011_verified_population_estimated_capacity

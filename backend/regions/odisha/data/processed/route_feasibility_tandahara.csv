@@ -1,0 +1,7 @@
+village,site,distance_km,travel_time_min,hazard_score,bridge_score,distance_score,base_feasibility,verification_status,verification_note,route_feasibility_score
+Tandahara,Bhadrak,33.5,80.4,5,100.0,70.3,56.4,UNVERIFIED - provisional,No recent field/drone observation,47.9
+Tandahara,Nimapada,36.9,88.6,5,100.0,67.3,55.3,UNVERIFIED - provisional,No recent field/drone observation,47.0
+Tandahara,Pipili,55.7,133.7,5,100.0,50.7,49.5,UNVERIFIED - provisional,No recent field/drone observation,42.1
+Tandahara,Bhubaneswar,63.7,152.9,5,100.0,43.6,47.0,UNVERIFIED - provisional,No recent field/drone observation,40.0
+Tandahara,Puri,63.8,153.1,5,100.0,43.5,47.0,UNVERIFIED - provisional,No recent field/drone observation,39.9
+Tandahara,Berhampur,112.9,271.0,5,100.0,5.0,33.5,UNVERIFIED - provisional,No recent field/drone observation,28.5

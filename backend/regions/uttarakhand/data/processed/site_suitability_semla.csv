@@ -1,0 +1,4 @@
+village,site,suitability_score,safety_score,capacity_score,access_score,straight_line_km,capacity_sufficient,resource_gap,hazard_note
+Semla,Ukhimath,96.8,100.0,100.0,87.4,7.6,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Semla,Rudraprayag,86.8,73.6,100.0,89.5,6.3,True,No resource gaps - capacity sufficient,1.42km from landslide zone 'Bheti-Pondar-Sem landslide zone' (1998)
+Semla,Guptkashi,76.4,44.6,97.0,98.5,0.9,False,shelter short by 15 people,0.44km from landslide zone 'Okhimath (Mangoli-Chunni-Semla) landslide zone' (2012)

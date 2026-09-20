@@ -1,0 +1,22 @@
+why yolo? why not any other object detection model?
+
+how are we rerouting ? what algorithm is used for rerouting ?
+
+how are we predicting redzones and disasters?
+
+how are differentiating between a less safe near site or far but safer site?
+
+how are we managing relocation site inventory , stocks etc. and also live people capacity tracking . 
+
+when we find any blockage on road , the drone sends the exact coordinate of blocked road , so we can find another shortest path . so how are we doing this ?
+ 
+where are you taking datas and dataset from?
+
+parameters on which it declare a place safe or not , and parameter which declare a place to be red zone.
+
+what parameters are different scoring engine taking , what scoring engine are we using?
+
+what are GeoPandas, Shapely, rasterio, NumPy, Pandas these library doing in project ?
+
+how are we collecting data like , redzone regions population , relocation sites and its capacity ?
+

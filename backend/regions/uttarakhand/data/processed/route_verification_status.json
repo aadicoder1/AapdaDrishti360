@@ -1,0 +1,50 @@
+{
+  "Gaurikund__Guptkashi": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Gaurikund__Rudraprayag": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Gaurikund__Ukhimath": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Pondar__Guptkashi": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Pondar__Rudraprayag": {
+    "status": "verified_blocked",
+    "note": "Set via dashboard"
+  },
+  "Pondar__Ukhimath": {
+    "status": "verified_blocked",
+    "note": "Set via dashboard"
+  },
+  "Agastmuni__Guptkashi": {
+    "status": "verified_blocked",
+    "note": "Set via dashboard"
+  },
+  "Agastmuni__Rudraprayag": {
+    "status": "verified_blocked",
+    "note": "Set via dashboard"
+  },
+  "Agastmuni__Ukhimath": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Mangoli__Ukhimath": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Mangoli__Guptkashi": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Mangoli__Rudraprayag": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  }
+}

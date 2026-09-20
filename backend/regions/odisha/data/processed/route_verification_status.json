@@ -1,0 +1,58 @@
+{
+  "Kakatpur__Bhadrak": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Kakatpur__Nimapada": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Kakatpur__Pipili": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Kakatpur__Bhubaneswar": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Kakatpur__Puri": {
+    "status": "verified_blocked",
+    "note": "Set via dashboard"
+  },
+  "Kakatpur__Berhampur": {
+    "status": "verified_blocked",
+    "note": "Set via dashboard"
+  },
+  "Astaranga__Bhubaneswar": {
+    "status": "verified_clear",
+    "note": "[drone_ai] landslide material and debris scattered across the road (confidence: high, frame 1)"
+  },
+  "Tandahara__Berhampur": {
+    "status": "verified_blocked",
+    "note": "Set via dashboard"
+  },
+  "Tandahara__Bhadrak": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Tandahara__Nimapada": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Tandahara__Pipili": {
+    "status": "verified_blocked",
+    "note": "Set via dashboard"
+  },
+  "Tandahara__Bhubaneswar": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  },
+  "Tandahara__Puri": {
+    "status": "verified_blocked",
+    "note": "Set via dashboard"
+  },
+  "Astaranga__Bhadrak": {
+    "status": "verified_clear",
+    "note": "Set via dashboard"
+  }
+}

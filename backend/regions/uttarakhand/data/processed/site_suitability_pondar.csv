@@ -1,0 +1,4 @@
+village,site,suitability_score,safety_score,capacity_score,access_score,straight_line_km,capacity_sufficient,resource_gap,hazard_note
+Pondar,Ukhimath,95.3,100.0,100.0,81.4,11.1,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Pondar,Rudraprayag,88.3,73.6,100.0,95.5,2.7,True,No resource gaps - capacity sufficient,1.42km from landslide zone 'Bheti-Pondar-Sem landslide zone' (1998)
+Pondar,Guptkashi,73.4,44.6,92.0,93.6,3.8,False,"shelter short by 30 people; water short by 2,000L/day",0.44km from landslide zone 'Okhimath (Mangoli-Chunni-Semla) landslide zone' (2012)

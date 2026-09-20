@@ -1,0 +1,7 @@
+village,site,suitability_score,safety_score,capacity_score,access_score,straight_line_km,capacity_sufficient,resource_gap,hazard_note
+Astaranga,Bhubaneswar,75.7,100.0,100.0,2.6,58.4,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Astaranga,Bhadrak,75.0,100.0,100.0,0.0,121.8,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Astaranga,Berhampur,75.0,100.0,100.0,0.0,175.5,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Astaranga,Nimapada,60.3,100.0,24.7,46.5,32.1,False,"shelter short by 2342 people; water short by 348,800L/day; sanitation short by 155 units",No significant hazard proximity detected.
+Astaranga,Pipili,51.0,100.0,22.7,12.1,52.8,False,"shelter short by 2392 people; water short by 358,800L/day; sanitation short by 160 units",No significant hazard proximity detected.
+Astaranga,Puri,47.7,25.8,100.0,9.5,54.3,True,No resource gaps - capacity sufficient,"Inside cyclone buffer zone 'Puri Fani landfall zone' (2019, 7yr ago): Cyclone Fani made landfall at Puri, 3 May 2019, 200kmph winds, 1.5m storm surge; 21 deaths and 189,095 houses damaged in Puri district"

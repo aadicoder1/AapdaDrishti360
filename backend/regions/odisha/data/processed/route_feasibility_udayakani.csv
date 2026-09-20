@@ -1,0 +1,7 @@
+village,site,distance_km,travel_time_min,hazard_score,bridge_score,distance_score,base_feasibility,verification_status,verification_note,route_feasibility_score
+Udayakani,Bhadrak,32.1,77.0,5,100.0,71.2,56.7,UNVERIFIED - provisional,No recent field/drone observation,48.2
+Udayakani,Nimapada,35.5,85.2,5,100.0,68.2,55.6,UNVERIFIED - provisional,No recent field/drone observation,47.3
+Udayakani,Pipili,54.4,130.6,5,100.0,51.2,49.7,UNVERIFIED - provisional,No recent field/drone observation,42.2
+Udayakani,Puri,62.4,149.8,5,100.0,44.0,47.2,UNVERIFIED - provisional,No recent field/drone observation,40.1
+Udayakani,Bhubaneswar,62.3,149.5,5,100.0,44.1,47.2,UNVERIFIED - provisional,No recent field/drone observation,40.1
+Udayakani,Berhampur,111.5,267.6,5,100.0,5.0,33.5,UNVERIFIED - provisional,No recent field/drone observation,28.5

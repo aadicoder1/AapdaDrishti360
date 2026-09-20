@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "relocation_sites",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "Rudraprayag", "full_query": "Rudraprayag, Uttarakhand, India", "lat": 30.4915835, "lon": 79.0366067, "baseline_hazard_score": 26.4, "hazard_note": "1.42km from landslide zone 'Bheti-Pondar-Sem landslide zone' (1998)", "safety_assessment": "Low baseline hazard exposure - viable candidate" }, "geometry": { "type": "Point", "coordinates": [ 79.0366067, 30.4915835 ] } },
+{ "type": "Feature", "properties": { "name": "Guptkashi", "full_query": "Guptkashi, Rudraprayag, Uttarakhand, India", "lat": 30.5283243, "lon": 79.0817757, "baseline_hazard_score": 55.4, "hazard_note": "0.44km from landslide zone 'Okhimath (Mangoli-Chunni-Semla) landslide zone' (2012)", "safety_assessment": "Moderate hazard exposure - verify local conditions" }, "geometry": { "type": "Point", "coordinates": [ 79.0817757, 30.5283243 ] } },
+{ "type": "Feature", "properties": { "name": "Ukhimath", "full_query": "Ukhimath, Rudraprayag, Uttarakhand, India", "lat": 30.5845118, "lon": 79.1287714, "baseline_hazard_score": 0.0, "hazard_note": "No significant hazard proximity detected.", "safety_assessment": "Low baseline hazard exposure - viable candidate" }, "geometry": { "type": "Point", "coordinates": [ 79.1287714, 30.5845118 ] } }
+]
+}

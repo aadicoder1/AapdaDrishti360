@@ -1,0 +1,4 @@
+village,site,distance_km,travel_time_min,hazard_score,bridge_score,distance_score,base_feasibility,verification_status,verification_note,route_feasibility_score
+Pondar,Guptkashi,9.6,23.0,56.7,100.0,78.9,77.5,UNVERIFIED - provisional,No recent field/drone observation,65.8
+Pondar,Rudraprayag,24.0,57.6,44.0,100.0,47.4,62.0,UNVERIFIED - provisional,No recent field/drone observation,52.7
+Pondar,Ukhimath,45.6,109.4,5.0,25.0,5.0,11.0,UNVERIFIED - provisional,No recent field/drone observation,9.3

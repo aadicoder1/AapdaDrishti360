@@ -1,0 +1,7 @@
+village,site,distance_km,travel_time_min,hazard_score,bridge_score,distance_score,base_feasibility,verification_status,verification_note,route_feasibility_score
+Kakatpur,Bhadrak,24.8,59.5,100.0,100.0,75.5,91.4,UNVERIFIED - provisional,No recent field/drone observation,77.7
+Kakatpur,Nimapada,28.3,67.9,100.0,100.0,72.0,90.2,UNVERIFIED - provisional,No recent field/drone observation,76.7
+Kakatpur,Pipili,47.1,113.0,100.0,100.0,53.5,83.7,UNVERIFIED - provisional,No recent field/drone observation,71.2
+Kakatpur,Bhubaneswar,55.1,132.2,100.0,100.0,45.6,81.0,UNVERIFIED - provisional,No recent field/drone observation,68.8
+Kakatpur,Puri,52.1,125.0,5.0,100.0,48.5,48.7,UNVERIFIED - provisional,No recent field/drone observation,41.4
+Kakatpur,Berhampur,101.2,242.9,5.0,100.0,5.0,33.5,UNVERIFIED - provisional,No recent field/drone observation,28.5

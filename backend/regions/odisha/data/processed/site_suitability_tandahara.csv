@@ -1,0 +1,7 @@
+village,site,suitability_score,safety_score,capacity_score,access_score,straight_line_km,capacity_sufficient,resource_gap,hazard_note
+Tandahara,Nimapada,79.0,100.0,76.4,49.1,30.5,False,"shelter short by 250 people; water short by 35,000L/day; sanitation short by 15 units",No significant hazard proximity detected.
+Tandahara,Bhubaneswar,76.1,100.0,100.0,4.4,57.3,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Tandahara,Bhadrak,75.0,100.0,100.0,0.0,123.3,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Tandahara,Berhampur,75.0,100.0,100.0,0.0,173.2,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Tandahara,Pipili,68.2,100.0,70.0,14.8,51.1,False,"shelter short by 300 people; water short by 45,000L/day; sanitation short by 20 units",No significant hazard proximity detected.
+Tandahara,Puri,48.7,25.8,100.0,13.4,52.0,True,No resource gaps - capacity sufficient,"Inside cyclone buffer zone 'Puri Fani landfall zone' (2019, 7yr ago): Cyclone Fani made landfall at Puri, 3 May 2019, 200kmph winds, 1.5m storm surge; 21 deaths and 189,095 houses damaged in Puri district"

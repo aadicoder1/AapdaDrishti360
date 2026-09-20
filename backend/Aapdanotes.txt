@@ -1,0 +1,47 @@
+==================Ideas/Impactful solution to implement====================
+
+1. use gemini or something to track real time weather ,disaster news , so it alerts nearby regions/villages/areas and find nearest relocation sites. also we can improve our ui here by clicking on redzone also give details of disaster and its scope.
+
+2. focus on relocation sites too , regularly track its occupancy and available resources . and focus on efficiently managing these sites. use community building as relocation site . in ui we can show a bar graph like our mobile battery , which shows how much the site is full .
+
+think more on short term relocation(minor earthquake) and long term relocation(landslide , flood ).
+
+3. somehow predict the regions that can be affected by the disaster , maybe by news or forecast .in ui we can cover the predicted area by darker color to show scope of disaster.
+
+4.  chatbot support for authorities giving them data of villages like population and other thing , to improve decision making of authority to who to relocate or rescue first.
+
+5. After that we have to somehow implement drone aapdadrishti version too in same project.
+
+6. 
+
+
+
+
+
+
+=======Drone role before and during relocation=======
+Verify whether the route is open.
+
+Inspect a bridge or road bottleneck.
+
+Check floodwater or slope damage.
+
+Verify whether the relocation site is accessible.
+
+Update the route feasibility score.
+
+Provide visual evidence for officials.
+
+========Drone role after the event========
+Run your existing RGB/thermal rescue pipeline.
+
+Detect visible or partially exposed survivors.
+
+Create evidence-backed rescue cases.
+
+Estimate location with error radius.
+
+Assign priority.
+
+Require human verification.
+

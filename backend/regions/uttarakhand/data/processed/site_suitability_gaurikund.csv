@@ -1,0 +1,4 @@
+village,site,suitability_score,safety_score,capacity_score,access_score,straight_line_km,capacity_sufficient,resource_gap,hazard_note
+Gaurikund,Ukhimath,94.8,100.0,100.0,79.3,12.4,True,No resource gaps - capacity sufficient,No significant hazard proximity detected.
+Gaurikund,Rudraprayag,82.0,73.6,100.0,70.1,18.0,True,No resource gaps - capacity sufficient,1.42km from landslide zone 'Bheti-Pondar-Sem landslide zone' (1998)
+Gaurikund,Guptkashi,62.6,44.6,74.0,75.3,14.8,False,"shelter short by 73 people; water short by 8,450L/day; sanitation short by 3 units",0.44km from landslide zone 'Okhimath (Mangoli-Chunni-Semla) landslide zone' (2012)

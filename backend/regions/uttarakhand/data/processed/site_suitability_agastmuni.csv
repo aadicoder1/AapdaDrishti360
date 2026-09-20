@@ -1,0 +1,4 @@
+village,site,suitability_score,safety_score,capacity_score,access_score,straight_line_km,capacity_sufficient,resource_gap,hazard_note
+Agastmuni,Rudraprayag,74.5,73.6,70.5,81.5,11.1,False,"shelter short by 250 people; water short by 37,500L/day; sanitation short by 17 units",1.42km from landslide zone 'Bheti-Pondar-Sem landslide zone' (1998)
+Agastmuni,Ukhimath,67.5,100.0,35.2,60.8,23.5,False,"shelter short by 550 people; water short by 82,500L/day; sanitation short by 37 units",No significant hazard proximity detected.
+Agastmuni,Guptkashi,43.0,44.6,19.4,73.3,16.0,False,"shelter short by 700 people; water short by 102,500L/day; sanitation short by 45 units",0.44km from landslide zone 'Okhimath (Mangoli-Chunni-Semla) landslide zone' (2012)

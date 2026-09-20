@@ -1,0 +1,3 @@
+village,site,distance_km,travel_time_min,hazard_score,bridge_score,distance_score,base_feasibility,verification_status,verification_note,route_feasibility_score
+Semla,Rudraprayag,17.0,40.8,36.2,100.0,52.8,61.2,UNVERIFIED - provisional,No recent field/drone observation,52.0
+Semla,Ukhimath,36.0,86.4,5.0,25.0,5.0,11.0,UNVERIFIED - provisional,No recent field/drone observation,9.3

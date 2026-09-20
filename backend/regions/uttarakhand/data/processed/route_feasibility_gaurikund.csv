@@ -1,0 +1,4 @@
+village,site,distance_km,travel_time_min,hazard_score,bridge_score,distance_score,base_feasibility,verification_status,verification_note,route_feasibility_score
+Gaurikund,Rudraprayag,48.2,115.7,5.0,75.0,30.9,35.1,UNVERIFIED - provisional,No recent field/drone observation,29.8
+Gaurikund,Guptkashi,33.8,81.1,8.8,75.0,51.6,43.6,VERIFIED BLOCKED,"Drone footage: bridge on Guptkashi route flooded, impassable",6.5
+Gaurikund,Ukhimath,69.8,167.5,5.0,5.0,5.0,5.0,UNVERIFIED - provisional,No recent field/drone observation,4.2
