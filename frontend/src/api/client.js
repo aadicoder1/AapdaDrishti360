@@ -1,36 +1,25 @@
 // api/client.js
-// Strict live FastAPI health check and region-aware fetch wrapper.
 import fallbackData from "./mockData.json";
 
-const HOST_CANDIDATES = [
-  "http://127.0.0.1:8000",
-  "http://localhost:8000",
-];
+const ENV_URL = import.meta.env.VITE_API_URL;
 
-let workingBase = "http://127.0.0.1:8000";
+const HOST_CANDIDATES = ENV_URL
+  ? [ENV_URL.replace(/\/$/, "")]
+  : ["http://127.0.0.1:8000", "http://localhost:8000"];
+
+let workingBase = HOST_CANDIDATES[0];
+
+// Render free tier can take 30-60 s to wake up, so allow longer when using a remote URL
+const TIMEOUT_MS = ENV_URL ? 60000 : 1800;
+const HEALTH_TIMEOUT_MS = ENV_URL ? 60000 : 1200;
 
 async function fetchWithFallback(urlPath, options = {}) {
-  // Try workingBase first
-  try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 1800);
-    const res = await fetch(`${workingBase}${urlPath}`, {
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      signal: controller.signal,
-      ...options,
-    });
-    clearTimeout(timeout);
-    const ct = res.headers.get("content-type") || "";
-    if (res.ok && ct.includes("application/json")) return res;
-  } catch {}
-
-  // Try alternative host candidates
-  for (const candidate of HOST_CANDIDATES) {
-    if (candidate === workingBase) continue;
+  const bases = [workingBase, ...HOST_CANDIDATES.filter((b) => b !== workingBase)];
+  for (const base of bases) {
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 1800);
-      const res = await fetch(`${candidate}${urlPath}`, {
+      const timeout = setTimeout(() => controller.abort(), HEALTH_TIMEOUT_MS);
+      const res = await fetch(`${base}${urlPath}`, {
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         signal: controller.signal,
         ...options,
@@ -38,7 +27,7 @@ async function fetchWithFallback(urlPath, options = {}) {
       clearTimeout(timeout);
       const ct = res.headers.get("content-type") || "";
       if (res.ok && ct.includes("application/json")) {
-        workingBase = candidate;
+        workingBase = base;
         return res;
       }
     } catch {}
