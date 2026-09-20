@@ -1,7 +1,6 @@
 // api/client.js
 import fallbackData from "./mockData.json";
-
-const ENV_URL = import.meta.env.VITE_API_URL;
+const ENV_URL = import.meta.env.VITE_API_URL || "https://aapdadrishti360.onrender.com";
 
 const HOST_CANDIDATES = ENV_URL
   ? [ENV_URL.replace(/\/$/, "")]
