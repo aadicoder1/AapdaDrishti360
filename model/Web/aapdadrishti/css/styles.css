@@ -1,0 +1,249 @@
+/* AapdaDrishti - Enterprise AI Disaster Response Design System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Surface colors */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8FAFC;
+  --bg-tertiary: #EFF6FF;
+  --bg-dark-panel: #0B1220;
+  --bg-dark-surface: #111827;
+  
+  /* Text colors */
+  --text-headline: #0F172A;
+  --text-body: #334155;
+  --text-muted: #64748B;
+  --text-subtle: #94A3B8;
+
+  /* Accents */
+  --accent-cyan: #00E5FF;
+  --accent-blue: #0284C7;
+  --accent-indigo: #4F46E5;
+  --accent-emerald: #10B981;
+  --accent-red: #EF4444;
+  --accent-amber: #F59E0B;
+
+  /* Border tokens */
+  --border-light: #E2E8F0;
+  --border-subtle: #F1F5F9;
+  --border-dark: #1E293B;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text-body);
+  background-color: var(--bg-primary);
+}
+
+.font-heading {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* 3D Perspective Card Tilt Container */
+.tilt-card-container {
+  perspective: 1000px;
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out, box-shadow 0.25s ease-out;
+  will-change: transform;
+}
+
+/* Subtle Glassmorphism */
+.glass-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.glass-dark {
+  background: rgba(11, 18, 32, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(30, 41, 59, 0.8);
+}
+
+.glass-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.glass-card:hover::before {
+  left: 100%;
+}
+
+.glass-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -4px rgba(15, 23, 42, 0.09), 0 8px 16px -2px rgba(15, 23, 42, 0.04);
+  border-color: #CBD5E1;
+}
+
+/* Glowing Neon Accents */
+.neon-cyan-glow {
+  box-shadow: 0 0 30px -4px rgba(0, 229, 255, 0.4);
+}
+
+.neon-blue-glow {
+  box-shadow: 0 0 35px -4px rgba(2, 132, 199, 0.35);
+}
+
+/* Section Spacing System */
+.section-spacing {
+  padding-top: 140px;
+  padding-bottom: 140px;
+}
+
+@media (max-width: 1024px) {
+  .section-spacing {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-spacing {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+}
+
+/* Grid Patterns */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(226, 232, 240, 0.6) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.6) 1px, transparent 1px);
+}
+
+.bg-grid-pattern-dark {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(30, 41, 59, 0.6) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 41, 59, 0.6) 1px, transparent 1px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F8FAFC;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Smooth Scroll Reveal Classes */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered Delay Utilities */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+
+/* Floating Animations */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(0.5deg); }
+}
+
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(12px) rotate(-0.5deg); }
+}
+
+.animate-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: floatReverse 7s ease-in-out infinite;
+}
+
+/* Radar Beacon Animation */
+@keyframes radarBeacon {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.7); opacity: 0; }
+  100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+.animate-radar-pulse {
+  animation: radarBeacon 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Thermal Video Scanlines */
+.thermal-scanlines {
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+}
+
+/* Mouse Follow Ambient Glow */
+.mouse-ambient-glow {
+  pointer-events: none;
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, rgba(79, 70, 229, 0.03) 40%, transparent 70%);
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: width 0.3s, height 0.3s;
+}
+
+/* Tactical Drone Flight & Casualty Pin Styles */
+.drone-active-marker {
+  transition: all 0.2s linear;
+}
+
+.casualty-pin {
+  transition: transform 0.2s ease-out;
+}
+.casualty-pin:hover {
+  transform: scale(1.18);
+  z-index: 1000 !important;
+}
+
+.leaflet-container {
+  font-family: 'Inter', sans-serif !important;
+}
+

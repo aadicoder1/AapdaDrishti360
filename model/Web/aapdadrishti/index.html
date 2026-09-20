@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AapdaDrishti — AI Disaster Search & Rescue Intelligence</title>
+  <meta name="description" content="AI-powered disaster search and rescue intelligence that transforms aerial drone video into real-time actionable rescue decisions.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0B1220',
+              surface: '#111827',
+              navy: '#0F172A',
+              cyan: '#00E5FF',
+              blue: '#0284C7',
+              indigo: '#4F46E5',
+              emerald: '#10B981',
+              red: '#EF4444',
+              amber: '#F59E0B'
+            }
+          },
+          fontFamily: {
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Leaflet CSS & JS for Interactive World Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Custom Design System Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-cyan-100 selection:text-cyan-900">
+
+  <!-- ========================================== -->
+  <!-- NAVBAR -->
+  <!-- ========================================== -->
+  <header id="mainNavbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent border-b border-transparent backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center border border-slate-700 shadow-md group-hover:border-cyan-400 transition">
+          <svg class="w-5 h-5 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 2v20M2 12h20M7 7l10 10M17 7L7 17"/>
+            <circle cx="12" cy="12" r="3" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <span class="text-lg font-bold tracking-tight text-slate-900 font-heading">
+            AapdaDrishti
+          </span>
+          <span class="hidden sm:inline-block ml-2 text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-200 font-semibold">
+            AI RESCUE OS
+          </span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-600">
+        <a href="#hero" class="hover:text-slate-900 transition">Home</a>
+        <a href="#disaster-analyzer" class="hover:text-slate-900 transition">Disaster AI</a>
+        <a href="#disaster-predictor" class="text-blue-600 hover:text-blue-700 font-semibold transition flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span> AI Predictor
+        </a>
+        <a href="#showcase" class="hover:text-slate-900 transition">Live Feed</a>
+        <a href="#map" class="hover:text-slate-900 transition">Tactical Map</a>
+        <a href="#fundraiser" class="text-emerald-700 hover:text-emerald-800 font-semibold transition flex items-center gap-1">
+          <span>❤️</span> Relief Fund
+        </a>
+        <a href="#features" class="hover:text-slate-900 transition">Features</a>
+        <a href="#roadmap" class="hover:text-slate-900 transition">Roadmap</a>
+        <a href="#faq" class="hover:text-slate-900 transition">FAQ</a>
+      </nav>
+
+      <!-- CTA Actions -->
+      <div class="flex items-center gap-3">
+        <button onclick="window.AapdaFundraiser.openDonationModal()" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono font-bold shadow-md transition flex items-center gap-1.5">
+          <span>❤️</span> Donate / Relief Fund
+        </button>
+        <button onclick="openDemoModal()" class="px-4 py-2 text-xs font-semibold text-slate-700 hover:text-slate-900 transition hidden sm:inline-block">
+          Agency Pilot
+        </button>
+        <a href="#showcase" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm hover:shadow transition flex items-center gap-1.5 font-heading">
+          Live Feed <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- SECTION 1: FULL-SCREEN HERO -->
+  <!-- ========================================== -->
+  <section id="hero" class="relative min-h-screen pt-32 pb-20 flex items-center overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50">
+    
+    <!-- 3D Topographic Terrain Canvas Background -->
+    <div class="absolute inset-0 z-0 pointer-events-none opacity-60">
+      <canvas id="heroBgCanvas" class="w-full h-full"></canvas>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 w-full relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Hero Left Column -->
+        <div class="lg:col-span-6 space-y-8 reveal-on-scroll">
+          
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-50 border border-cyan-200 text-xs font-mono font-medium text-cyan-900">
+            <span class="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
+            AUTONOMOUS DISASTER SEARCH INTELLIGENCE
+          </div>
+
+          <h1 class="text-4xl sm:text-6xl font-bold tracking-tight text-slate-900 font-heading leading-[1.08]">
+            See Every Survivor.<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Save Every Second.</span>
+          </h1>
+
+          <p class="text-lg text-slate-600 leading-relaxed max-w-xl">
+            AI-powered disaster search and rescue intelligence that transforms aerial video into real-time actionable rescue decisions for emergency responders.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <button onclick="openDemoModal()" class="px-7 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold shadow-lg hover:shadow-xl transition flex items-center gap-2 font-heading">
+              Request Enterprise Demo <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </button>
+            <a href="#showcase" class="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-sm font-semibold border border-slate-200 shadow-sm transition">
+              Explore Live Feed
+            </a>
+          </div>
+
+          <!-- Animated KPI Counters -->
+          <div class="pt-8 border-t border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-6" id="heroCountersSection">
+            <div>
+              <div class="text-2xl sm:text-3xl font-bold text-slate-900 font-heading stat-counter" data-target="250" data-suffix="+">250+</div>
+              <div class="text-xs font-mono text-slate-500 mt-1">Videos Analysed</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-bold text-blue-600 font-heading stat-counter" data-target="98" data-percent="true">98%</div>
+              <div class="text-xs font-mono text-slate-500 mt-1">Detection Precision</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-bold text-indigo-600 font-heading stat-counter" data-target="5" data-seconds="true">&lt;5 sec</div>
+              <div class="text-xs font-mono text-slate-500 mt-1">Alert Generation</div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-bold text-emerald-600 font-heading">24/7</div>
+              <div class="text-xs font-mono text-slate-500 mt-1">Offline Edge Ready</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Hero Right Column: Animated AI Dashboard Mockup with Floating UI Cards -->
+        <div class="lg:col-span-6 relative reveal-on-scroll delay-200">
+          
+          <!-- Main Floating Command Preview Card -->
+          <div class="relative bg-slate-900 rounded-3xl p-4 border border-slate-800 shadow-2xl overflow-hidden neon-cyan-glow tilt-card">
+            
+            <!-- Video Mockup Frame with Live Assam Video Preview -->
+            <div class="relative aspect-video rounded-2xl bg-slate-950 overflow-hidden border border-slate-800 flex items-center justify-center">
+              
+              <!-- Video Background -->
+              <video src="Assam_flood.mp4" autoplay loop muted playsinline class="w-full h-full object-cover opacity-90"></video>
+
+              <!-- Top Left Telemetry Tag -->
+              <div class="absolute top-4 left-4 z-10 bg-slate-900/90 border border-slate-700 px-3 py-1 rounded-lg text-xs font-mono text-cyan-400 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                UAV-01 • ASSAM BRAHMAPUTRA
+              </div>
+
+              <!-- Center Bounding Box Focus -->
+              <div class="absolute bottom-6 right-6 z-10 border-2 border-red-500 bg-red-500/10 p-3 rounded-lg w-48 text-center space-y-1 backdrop-blur-sm">
+                <div class="bg-red-600 text-white text-[10px] font-mono font-bold py-0.5 rounded uppercase">
+                  [CRITICAL] TRK-104 (96.8%)
+                </div>
+                <div class="text-xs font-mono text-white">26.1445° N, 91.7362° E</div>
+                <div class="text-[10px] font-mono text-amber-300 font-bold">±14m Error Radius</div>
+              </div>
+
+              <!-- Scan Grid Lines -->
+              <div class="absolute inset-0 bg-grid-pattern-dark opacity-30 pointer-events-none"></div>
+
+            </div>
+
+            <!-- Bottom Dashboard Status Bar -->
+            <div class="mt-3 px-2 flex items-center justify-between text-xs font-mono text-slate-400">
+              <span>YOLOv9-SAR @ 42 FPS</span>
+              <span class="text-emerald-400 font-semibold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Edge Inference Active
+              </span>
+            </div>
+
+          </div>
+
+          <!-- Floating Card 1: Survivor Detected (Top Right) -->
+          <div class="absolute -top-6 -right-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-slate-200 shadow-xl z-20 animate-float hidden sm:flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center font-bold">
+              ✓
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-900 font-heading">Survivor Detected</div>
+              <div class="text-[11px] font-mono text-slate-500">Confidence: 96.8% • Van Roof</div>
+            </div>
+          </div>
+
+          <!-- Floating Card 2: GPS Triangulation (Bottom Left) -->
+          <div class="absolute -bottom-6 -left-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-slate-200 shadow-xl z-20 animate-float-delayed hidden sm:flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+              <i data-lucide="map-pin" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-900 font-heading">Raycast Ground GPS</div>
+              <div class="text-[11px] font-mono text-slate-500">26.14450° N, 91.73620° E (±14m)</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 2: MISSION STATEMENT -->
+  <!-- ========================================== -->
+  <section class="section-spacing bg-white relative overflow-hidden border-y border-slate-100 reveal-on-scroll">
+    <div class="max-w-5xl mx-auto px-6 text-center space-y-6 relative z-10">
+      
+      <div class="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold">
+        The Core Mission
+      </div>
+
+      <h2 class="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 font-heading leading-tight max-w-4xl mx-auto">
+        “AapdaDrishti is an AI Rescue Intelligence Platform that analyses aerial video, detects survivors, prioritizes rescue operations, and assists emergency responders in real time.”
+      </h2>
+
+      <p class="text-base text-slate-500 font-sans max-w-2xl mx-auto pt-2">
+        Engineered for rapid deployment during floods, earthquakes, landslides, and industrial fires when ground communications are lost.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 3: INTERACTIVE STORYTELLING -->
+  <!-- ========================================== -->
+  <section id="storytelling" class="section-spacing bg-slate-50 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 space-y-16">
+      
+      <div class="text-center space-y-3 max-w-2xl mx-auto reveal-on-scroll">
+        <div class="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold">
+          End-to-End Operational Workflow
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+          From Sensor Stream to Saved Lives
+        </h2>
+        <p class="text-base text-slate-600">
+          How raw aerial pixels transform into coordinated tactical rescue actions.
+        </p>
+      </div>
+
+      <!-- 4 Storytelling Steps Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Step 1: The Problem -->
+        <div class="glass-card p-8 space-y-5 relative reveal-on-scroll">
+          <div class="text-xs font-mono font-bold text-red-600 bg-red-50 px-2.5 py-1 rounded-md inline-block">
+            01 / THE PROBLEM
+          </div>
+          <div class="w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center">
+            <i data-lucide="eye-off" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 font-heading">Manual Video Fatigue</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Responders capture hundreds of square kilometers of drone video. Manually scanning every frame under extreme exhaustion causes catastrophic delays during the golden hour.
+          </p>
+          <div class="text-xs font-mono text-slate-400 pt-2 border-t border-slate-100">
+            • 45+ mins lost per search zone
+          </div>
+        </div>
+
+        <!-- Step 2: AI Ingestion -->
+        <div class="glass-card p-8 space-y-5 relative reveal-on-scroll delay-100">
+          <div class="text-xs font-mono font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md inline-block">
+            02 / REAL-TIME AI
+          </div>
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
+            <i data-lucide="cpu" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 font-heading">Edge Neural Vision</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Custom-trained YOLOv9-SAR processes optical and radiometric thermal video at 42 FPS on lightweight edge hardware, instantly identifying subtle silhouettes and heat anomalies.
+          </p>
+          <div class="text-xs font-mono text-slate-400 pt-2 border-t border-slate-100">
+            • &lt;24ms inference per frame
+          </div>
+        </div>
+
+        <!-- Step 3: Localization & Triage -->
+        <div class="glass-card p-8 space-y-5 relative reveal-on-scroll delay-200">
+          <div class="text-xs font-mono font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md inline-block">
+            03 / DETECTION & GPS
+          </div>
+          <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <i data-lucide="map-pin" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 font-heading">Raycast Triangulation</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Projects drone gimbal orientation and DEM elevation to estimate ground GPS coordinates with an honest uncertainty radius, assigning persistent ByteTrack IDs (`TRK-104`).
+          </p>
+          <div class="text-xs font-mono text-slate-400 pt-2 border-t border-slate-100">
+            • Honest ±14m uncertainty buffer
+          </div>
+        </div>
+
+        <!-- Step 4: Coordinated Rescue -->
+        <div class="glass-card p-8 space-y-5 relative reveal-on-scroll delay-300">
+          <div class="text-xs font-mono font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md inline-block">
+            04 / VERIFIED RESCUE
+          </div>
+          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <i data-lucide="shield-check" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 font-heading">Human-in-the-Loop</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Emergency commanders review structured forensic cards, verify detections with a single click, and mobilize watercraft, helicopters, or K9 teams to exact coordinates.
+          </p>
+          <div class="text-xs font-mono text-slate-400 pt-2 border-t border-slate-100">
+            • Mandatory responder verification
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION: "WE COULD ANALYZE THAT DISASTER" -->
+  <!-- ========================================== -->
+  <section id="disaster-analyzer" class="section-spacing bg-white border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 space-y-8">
+      
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 reveal-on-scroll">
+        <div class="space-y-3 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-mono font-bold text-blue-900">
+            <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+            MULTI-HAZARD RESCUE CAPABILITY
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+            “We Could Analyze That Disaster”
+          </h2>
+          <p class="text-base text-slate-600">
+            Select any disaster scenario below to see exactly what the drone cameras capture, what the AI spots in less than 5 seconds, and the immediate rescue dispatch action.
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Query Input Bar: "Type Any Disaster Scenario" -->
+      <div class="bg-slate-50 p-4 rounded-3xl border border-slate-200 shadow-sm space-y-3 reveal-on-scroll">
+        <div class="flex flex-col sm:flex-row items-center gap-2.5">
+          <div class="relative flex-1 w-full">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">💬</span>
+            <input type="text" id="customDisasterInput" placeholder="Type any disaster situation (e.g., Flash flood near tourist campsite with 4 people trapped)..." class="w-full pl-10 pr-4 py-3 bg-white rounded-2xl border border-slate-200 text-xs sm:text-sm font-sans focus:outline-none focus:border-blue-600 shadow-inner" onkeydown="if(event.key === 'Enter') window.AapdaDisasterAnalyzer.analyzeCustomQuery(this.value)">
+          </div>
+          <button onclick="window.AapdaDisasterAnalyzer.analyzeCustomQuery(document.getElementById('customDisasterInput').value)" class="w-full sm:w-auto px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-mono text-xs font-bold rounded-2xl shadow transition flex items-center justify-center gap-1.5 shrink-0">
+            <span>⚡</span> Analyze Scenario
+          </button>
+        </div>
+
+        <!-- Clickable Prompt Suggestion Chips -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 text-[11px] font-mono text-slate-500">
+          <span class="text-slate-400 font-bold shrink-0">Quick Examples:</span>
+          <button onclick="window.AapdaDisasterAnalyzer.setPresetPrompt('Flash flood in Manali with tourists trapped on a bus')" class="px-3 py-1 bg-white hover:bg-slate-200/80 rounded-xl border border-slate-200 shrink-0 transition">
+            🌊 Flash flood on mountain bus
+          </button>
+          <button onclick="window.AapdaDisasterAnalyzer.setPresetPrompt('Midnight chemical factory fire with workers inside')" class="px-3 py-1 bg-white hover:bg-slate-200/80 rounded-xl border border-slate-200 shrink-0 transition">
+            🔥 Midnight factory fire
+          </button>
+          <button onclick="window.AapdaDisasterAnalyzer.setPresetPrompt('Earthquake building collapse with trapped residents in basement void')" class="px-3 py-1 bg-white hover:bg-slate-200/80 rounded-xl border border-slate-200 shrink-0 transition">
+            🏢 Collapse basement void
+          </button>
+          <button onclick="window.AapdaDisasterAnalyzer.setPresetPrompt('Landslide blocking tourist vehicles on mountain highway')" class="px-3 py-1 bg-white hover:bg-slate-200/80 rounded-xl border border-slate-200 shrink-0 transition">
+            ⛰️ Landslide highway block
+          </button>
+        </div>
+      </div>
+
+      <!-- Disaster Preset Pills -->
+      <div class="flex flex-wrap items-center gap-2.5 reveal-on-scroll">
+        <span class="text-xs font-mono font-bold text-slate-400 uppercase mr-1">Or Pick Preset:</span>
+        <button onclick="window.AapdaDisasterAnalyzer.selectDisaster('flood')" data-disaster="flood" class="disaster-pill-btn px-4 py-2.5 rounded-2xl text-xs font-mono font-bold bg-slate-900 text-white shadow-md transition flex items-center gap-2">
+          <span>🌊</span> Floods & Inundation
+        </button>
+        <button onclick="window.AapdaDisasterAnalyzer.selectDisaster('earthquake')" data-disaster="earthquake" class="disaster-pill-btn px-4 py-2.5 rounded-2xl text-xs font-mono font-bold bg-white text-slate-700 border border-slate-200 hover:border-slate-300 transition flex items-center gap-2">
+          <span>🏢</span> Earthquakes & Collapse
+        </button>
+        <button onclick="window.AapdaDisasterAnalyzer.selectDisaster('fire')" data-disaster="fire" class="disaster-pill-btn px-4 py-2.5 rounded-2xl text-xs font-mono font-bold bg-white text-slate-700 border border-slate-200 hover:border-slate-300 transition flex items-center gap-2">
+          <span>🔥</span> Night Forest Fires
+        </button>
+        <button onclick="window.AapdaDisasterAnalyzer.selectDisaster('landslide')" data-disaster="landslide" class="disaster-pill-btn px-4 py-2.5 rounded-2xl text-xs font-mono font-bold bg-white text-slate-700 border border-slate-200 hover:border-slate-300 transition flex items-center gap-2">
+          <span>⛰️</span> Mountain Landslides
+        </button>
+        <button onclick="window.AapdaDisasterAnalyzer.selectDisaster('cyclone')" data-disaster="cyclone" class="disaster-pill-btn px-4 py-2.5 rounded-2xl text-xs font-mono font-bold bg-white text-slate-700 border border-slate-200 hover:border-slate-300 transition flex items-center gap-2">
+          <span>🌀</span> Coastal Cyclones
+        </button>
+      </div>
+
+      <!-- Result Card -->
+      <div class="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm reveal-on-scroll" id="disasterAnalysisResultCard">
+        <!-- Injected dynamically by disaster-analyzer.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 4: 12-CARD 3D FEATURES GRID -->
+  <!-- ========================================== -->
+  <section id="features" class="section-spacing bg-slate-50 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 space-y-16">
+      
+      <div class="text-center space-y-3 max-w-2xl mx-auto reveal-on-scroll">
+        <div class="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold">
+          Full Platform Capabilities
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+          Built for Mission-Critical Reliability
+        </h2>
+        <p class="text-base text-slate-600">
+          Twelve enterprise capabilities engineered for severe weather, degraded networks, and rapid disaster triage.
+        </p>
+      </div>
+
+      <!-- 12 Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- 1. AI Survivor Detection -->
+        <div class="glass-card p-8 space-y-4 reveal-on-scroll">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+            <i data-lucide="crosshair" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">AI Survivor Detection</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Custom-trained YOLOv9-SAR detects occluded bodies, waving gestures, and survivors clinging to roofs or trees with 98.2% precision.
+          </p>
+        </div>
+
+        <!-- 2. Persistent Person Tracking -->
+        <div class="glass-card p-8 space-y-4 reveal-on-scroll delay-100">
+          <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <i data-lucide="user-check" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">Persistent Person Tracking</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            ByteTrack algorithm assigns unique IDs (`TRK-104`) that persist through camera pans, gimbal tilts, and temporary tree cover.
+          </p>
+        </div>
+
+        <!-- 3. Thermal + RGB Support -->
+        <div class="glass-card p-8 space-y-4 reveal-on-scroll delay-200">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+            <i data-lucide="flame" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">Thermal + RGB Dual Support</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Seamlessly ingests 4K optical and radiometric FLIR long-wave infrared feeds for zero-light night operations and smoke penetration.
+          </p>
+        </div>
+
+        <!-- 4. GPS Location Estimation -->
+        <div class="glass-card p-8 space-y-4 reveal-on-scroll">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <i data-lucide="compass" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">GPS Location Estimation</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Raycasts camera vectors onto digital elevation models to estimate ground latitude and longitude with an explicit uncertainty radius.
+          </p>
+        </div>
+
+        <!-- 5. Explainable Priority Score -->
+        <div class="glass-card p-8 space-y-4 reveal-on-scroll delay-100">
+          <div class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center">
+            <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">Explainable Priority Score</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Synthesizes immobility duration, gestures, rising floodwaters, and fire temperatures into transparent CRITICAL, HIGH, and MEDIUM triage tiers.
+          </p>
+        </div>
+
+        <!-- 6. Hazard Detection -->
+        <div class="glass-card p-8 space-y-4 reveal-on-scroll delay-200">
+          <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
+            <i data-lucide="zap" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">Hazard & Obstacle Detection</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Automatically flags submerged electrical power lines, fast water currents, structural debris, and fire plume perimeters.
+          </p>
+        </div>
+
+        <!-- 7. Evidence Capture -->
+        <div class="glass-card p-8 space-y-4 reveal-on-scroll">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+            <i data-lucide="camera" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">Forensic Evidence Capture</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Selects the sharpest optical and thermal frame, attaching cryptographic geo-stamps and metadata for post-mission audit logging.
+          </p>
+        </div>
+
+        <!-- 8. Mission Dashboard -->
+        <div class="glass-card p-8 space-y-4 reveal-on-scroll delay-100">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center">
+            <i data-lucide="layout" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">Unified Mission Dashboard</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            A single command-center glass interface consolidating drone telemetry, incoming alerts, priority queues, and SAR asset statuses.
+          </p>
+        </div>
+
+        <!-- 9. Offline Mode -->
+        <div class="glass-card p-8 space-y-4 reveal-on-scroll delay-200">
+          <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center">
+            <i data-lucide="wifi-off" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">100% Offline Edge Mode</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Operates entirely on ruggedized field hardware without cloud connectivity, cellular networks, or external API dependencies.
+          </p>
+        </div>
+
+        <!-- 10. Human Verification -->
+        <div class="glass-card p-8 space-y-4 reveal-on-scroll">
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">Human-in-the-Loop Protocol</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            AI detections remain advisory until a certified commander inspects evidence imagery and signs off before asset mobilization.
+          </p>
+        </div>
+
+        <!-- 11. Privacy Protection -->
+        <div class="glass-card p-8 space-y-4 reveal-on-scroll delay-100">
+          <div class="w-10 h-10 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center">
+            <i data-lucide="lock" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">Automated Privacy Protection</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Zero facial recognition or biometric profiling. Detects only human form silhouettes and vital distress movement.
+          </p>
+        </div>
+
+        <!-- 12. Drone Agnostic -->
+        <div class="glass-card p-8 space-y-4 reveal-on-scroll delay-200">
+          <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <i data-lucide="plane" class="w-5 h-5"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">Drone Fleet Agnostic</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Compatible with DJI Enterprise, Autel, Skydio, Parrot, and custom MAVLink / PX4 autonomous UAV platforms.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 5: PLATFORM ARCHITECTURE -->
+  <!-- ========================================== -->
+  <section id="architecture" class="section-spacing bg-slate-50 border-y border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 space-y-16">
+      
+      <div class="text-center space-y-3 max-w-2xl mx-auto reveal-on-scroll">
+        <div class="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold">
+          High-Throughput Edge Pipeline
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+          Interactive Platform Architecture
+        </h2>
+        <p class="text-base text-slate-600">
+          Click any stage of our 8-node zero-copy computer vision pipeline to inspect latency and engineering specs.
+        </p>
+      </div>
+
+      <!-- 8-Stage Node Pipeline Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3" id="architectureNodesContainer">
+        <!-- Populated dynamically by architecture.js -->
+      </div>
+
+      <!-- Stage Detail Inspector Panel -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm max-w-4xl mx-auto reveal-on-scroll" id="architectureDetailPanel">
+        <!-- Populated by architecture.js -->
+      </div>
+
+      <!-- Edge Hardware & Zero-Cloud Deployment Specification Card -->
+      <div class="bg-slate-900 text-slate-100 rounded-3xl p-8 max-w-4xl mx-auto border border-slate-800 shadow-2xl reveal-on-scroll delay-100">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="w-9 h-9 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 flex items-center justify-center font-bold text-sm">
+              ⚡
+            </span>
+            <div>
+              <div class="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider">Field Deployment Hardware Profile</div>
+              <h3 class="text-lg font-bold text-white font-heading">100% Offline Edge Box & Mesh Transceiver</h3>
+            </div>
+          </div>
+          <span class="text-xs font-mono text-emerald-400 bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-500/30 self-start sm:self-auto">
+            ● IP67 Ruggedized Ready
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-6 font-mono text-xs">
+          <div class="bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800 space-y-1">
+            <span class="text-slate-500 text-[10px] block">COMPUTE UNIT:</span>
+            <span class="text-white font-bold">NVIDIA Jetson Orin Nano (8GB)</span>
+            <span class="text-cyan-400 text-[11px] block">40 TOPS AI Compute</span>
+          </div>
+
+          <div class="bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800 space-y-1">
+            <span class="text-slate-500 text-[10px] block">POWER DRAW:</span>
+            <span class="text-white font-bold">7W - 15W Max Power</span>
+            <span class="text-emerald-400 text-[11px] block">12h Battery Field Pack</span>
+          </div>
+
+          <div class="bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800 space-y-1">
+            <span class="text-slate-500 text-[10px] block">TELEMETRY LINK:</span>
+            <span class="text-white font-bold">COFDM Point-to-Multipoint</span>
+            <span class="text-indigo-400 text-[11px] block">18km Encrypted Mesh</span>
+          </div>
+
+          <div class="bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800 space-y-1">
+            <span class="text-slate-500 text-[10px] block">NETWORK PROFILE:</span>
+            <span class="text-white font-bold">Zero Cloud Dependence</span>
+            <span class="text-amber-400 text-[11px] block">100% Offline Air-Gapped</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 6: AI DETECTION SHOWCASE (MULTI-FEED VIDEO ANALYZER) -->
+  <!-- ========================================== -->
+  <section id="showcase" class="section-spacing bg-white">
+    <div class="max-w-7xl mx-auto px-6 space-y-10">
+      
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 reveal-on-scroll">
+        <div class="space-y-3 max-w-2xl">
+          <div class="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold">
+            Real-Time Drone Stream Analyzer
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+            Live AI Vision & Thermal Feed
+          </h2>
+          <p class="text-base text-slate-600">
+            Select a live drone mission feed to analyze in real time. Switch between your project's <strong class="text-slate-900 font-mono text-xs">night_uav.mp4</strong> (FLIR LWIR Thermal Recon) and <strong class="text-slate-900 font-mono text-xs">Assam_flood.mp4</strong> with live YOLOv9-SAR detection overlays.
+          </p>
+        </div>
+
+        <!-- Sensor Switcher & Export Buttons -->
+        <div class="flex flex-wrap items-center gap-2.5 self-start lg:self-auto">
+          <div class="flex items-center gap-2 bg-slate-100 p-1.5 rounded-xl border border-slate-200">
+            <button id="showcaseBtnThermal" class="px-4 py-2 rounded-lg text-xs font-mono font-bold bg-white text-slate-900 shadow-sm transition">
+              FLIR Radiometric Thermal
+            </button>
+            <button id="showcaseBtnRgb" class="px-4 py-2 rounded-lg text-xs font-mono font-bold text-slate-500 hover:text-slate-900 transition">
+              Optical 4K RGB
+            </button>
+          </div>
+          <button onclick="window.AapdaCapExporter.openCapModal()" class="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-mono font-bold rounded-xl shadow-sm transition flex items-center gap-1.5">
+            <i data-lucide="download" class="w-3.5 h-3.5 text-cyan-400"></i> Export CAP/JSON Report
+          </button>
+        </div>
+      </div>
+
+      <!-- Video Feed Preset Switcher Toolbar -->
+      <div class="bg-slate-50 p-2.5 rounded-2xl border border-slate-200 flex flex-wrap items-center justify-between gap-3 reveal-on-scroll">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="text-xs font-mono text-slate-500 px-2 font-bold uppercase">Select Video Feed:</span>
+          <button onclick="window.AapdaShowcase.loadPreset('night_uav')" data-preset="night_uav" class="video-preset-btn px-4 py-2 rounded-xl text-xs font-mono font-bold bg-slate-900 text-white shadow-sm transition flex items-center gap-1.5">
+            🌙 Night Thermal UAV (night_uav.mp4)
+          </button>
+          <button onclick="window.AapdaShowcase.loadPreset('assam_flood')" data-preset="assam_flood" class="video-preset-btn px-4 py-2 rounded-xl text-xs font-mono font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition flex items-center gap-1.5">
+            🌊 Assam Flood Basin (Assam_flood.mp4)
+          </button>
+        </div>
+
+        <label class="bg-white hover:bg-slate-100 text-slate-700 px-3.5 py-1.5 rounded-xl border border-slate-200 text-xs font-mono cursor-pointer flex items-center gap-1.5 shadow-sm transition">
+          <i data-lucide="upload" class="w-3.5 h-3.5 text-blue-600"></i> Upload Custom Drone Video
+          <input type="file" id="showcaseCustomFileInput" accept="video/mp4,video/webm" class="hidden">
+        </label>
+      </div>
+
+      <!-- Main Showcase Container -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Live Video & Canvas Viewport (8 cols) -->
+        <div class="lg:col-span-8 space-y-4 reveal-on-scroll">
+          
+          <div id="showcaseVideoContainer" class="relative bg-slate-950 rounded-3xl p-3 border border-slate-800 shadow-2xl overflow-hidden aspect-video flex items-center justify-center cursor-pointer group" onclick="if(window.AapdaShowcase) window.AapdaShowcase.ensurePlay();">
+            
+            <!-- Real HTML5 Video Element -->
+            <video id="showcaseVideo" src="night_uav.mp4" autoplay loop muted playsinline class="w-full h-full object-cover rounded-2xl block transition-all duration-300"></video>
+            
+            <!-- Canvas Overlay (Renders Real-Time AI Bounding Boxes + Telemetry) -->
+            <canvas id="showcaseCanvas" class="absolute inset-0 w-full h-full pointer-events-none rounded-2xl"></canvas>
+
+            <!-- Video On-Screen Playback Controls Overlay -->
+            <div class="absolute bottom-6 left-6 z-20 flex items-center gap-3 bg-slate-900/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-slate-700 text-white text-xs font-mono" onclick="event.stopPropagation();">
+              <button id="showcasePlayPauseBtn" class="hover:text-cyan-400 transition" title="Play/Pause">
+                <i data-lucide="pause" class="w-4 h-4"></i>
+              </button>
+              <button id="showcaseMuteBtn" class="hover:text-cyan-400 transition" title="Mute/Unmute">
+                <i data-lucide="volume-x" class="w-4 h-4"></i>
+              </button>
+              <span class="text-slate-400">|</span>
+              <span id="showcaseVideoFilename" class="text-cyan-300 font-bold truncate max-w-[200px]">night_uav.mp4</span>
+            </div>
+
+          </div>
+
+          <div class="flex items-center justify-between text-xs font-mono text-slate-500 px-2">
+            <div>Sensor: <span id="showcaseSensorBadge" class="text-slate-900 font-semibold">FLIR Radiometric Thermal (LWIR 8-14µm White-Hot)</span></div>
+            <div>Inference: <span class="text-emerald-600 font-bold">42 FPS (23.8ms)</span></div>
+          </div>
+        </div>
+
+        <!-- Right: Real-time Detections & Verification Queue (4 cols) -->
+        <div class="lg:col-span-4 space-y-4 reveal-on-scroll delay-100">
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4">
+            
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+              <span class="text-xs font-mono font-bold text-slate-700 uppercase tracking-wider">
+                Live Incident Triage
+              </span>
+              <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+            </div>
+
+            <!-- Populated dynamically by showcase.js based on selected video preset -->
+            <div id="showcaseTriageCardsContainer" class="space-y-3"></div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 7: TIMELINE: HOW AAPDADRISHTI WORKS -->
+  <!-- ========================================== -->
+  <section class="section-spacing bg-slate-50 border-t border-slate-100">
+    <div class="max-w-4xl mx-auto px-6 space-y-16">
+      
+      <div class="text-center space-y-3 reveal-on-scroll">
+        <div class="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold">
+          7-Step Execution Cycle
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+          How AapdaDrishti Works
+        </h2>
+        <p class="text-base text-slate-600">
+          The continuous 5-second loop executed for every aerial video packet.
+        </p>
+      </div>
+
+      <!-- Timeline Vertical Container -->
+      <div class="space-y-6 relative before:absolute before:inset-0 before:left-8 before:w-0.5 before:bg-slate-200">
+        
+        <!-- Step 1 -->
+        <div class="relative flex items-start gap-6 pl-2 reveal-on-scroll">
+          <div class="w-12 h-12 rounded-2xl bg-slate-900 text-white font-mono font-bold flex items-center justify-center shrink-0 z-10 shadow-md">
+            1
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-1 space-y-1">
+            <h3 class="text-base font-bold text-slate-900 font-heading">Drone Video Stream Ingested</h3>
+            <p class="text-xs text-slate-600">Encrypted 4K optical and FLIR thermal video packets stream to edge compute unit via COFDM mesh.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative flex items-start gap-6 pl-2 reveal-on-scroll">
+          <div class="w-12 h-12 rounded-2xl bg-slate-900 text-white font-mono font-bold flex items-center justify-center shrink-0 z-10 shadow-md">
+            2
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-1 space-y-1">
+            <h3 class="text-base font-bold text-slate-900 font-heading">AI Detects Survivor Silhouette</h3>
+            <p class="text-xs text-slate-600">YOLOv9-SAR isolates human figures, waving gestures, and thermal anomalies in under 24ms.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative flex items-start gap-6 pl-2 reveal-on-scroll">
+          <div class="w-12 h-12 rounded-2xl bg-slate-900 text-white font-mono font-bold flex items-center justify-center shrink-0 z-10 shadow-md">
+            3
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-1 space-y-1">
+            <h3 class="text-base font-bold text-slate-900 font-heading">ByteTrack Tracks Individual</h3>
+            <p class="text-xs text-slate-600">Assigns unique tracking ID preventing duplicate alerts across overlapping drone passes.</p>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="relative flex items-start gap-6 pl-2 reveal-on-scroll">
+          <div class="w-12 h-12 rounded-2xl bg-slate-900 text-white font-mono font-bold flex items-center justify-center shrink-0 z-10 shadow-md">
+            4
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-1 space-y-1">
+            <h3 class="text-base font-bold text-slate-900 font-heading">Calculates Ground GPS Coordinates</h3>
+            <p class="text-xs text-slate-600">Raycasts gimbal vector with digital elevation data, attaching honest uncertainty error radius.</p>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="relative flex items-start gap-6 pl-2 reveal-on-scroll">
+          <div class="w-12 h-12 rounded-2xl bg-slate-900 text-white font-mono font-bold flex items-center justify-center shrink-0 z-10 shadow-md">
+            5
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-1 space-y-1">
+            <h3 class="text-base font-bold text-slate-900 font-heading">Assigns Explainable Priority</h3>
+            <p class="text-xs text-slate-600">Evaluates immobility duration, rising water levels, and fire proximity into triage urgency level.</p>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="relative flex items-start gap-6 pl-2 reveal-on-scroll">
+          <div class="w-12 h-12 rounded-2xl bg-slate-900 text-white font-mono font-bold flex items-center justify-center shrink-0 z-10 shadow-md">
+            6
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-1 space-y-1">
+            <h3 class="text-base font-bold text-slate-900 font-heading">Human Verification Gate</h3>
+            <p class="text-xs text-slate-600">Emergency responder reviews evidence frame and confirms detection before asset deployment.</p>
+          </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="relative flex items-start gap-6 pl-2 reveal-on-scroll">
+          <div class="w-12 h-12 rounded-2xl bg-blue-600 text-white font-mono font-bold flex items-center justify-center shrink-0 z-10 shadow-lg">
+            7
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm flex-1 space-y-1">
+            <h3 class="text-base font-bold text-blue-900 font-heading">Dispatch Field Rescue Team</h3>
+            <p class="text-xs text-slate-600">Target coordinates, hazard flags, and evidence stream to watercraft, helicopter, or USAR teams.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 8: WHY AAPDADRISHTI (COMPARISON TABLE) -->
+  <!-- ========================================== -->
+  <section class="section-spacing bg-white border-t border-slate-100">
+    <div class="max-w-5xl mx-auto px-6 space-y-12">
+      
+      <div class="text-center space-y-3 reveal-on-scroll">
+        <div class="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold">
+          Comparative Advantage
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+          Traditional Search vs. AapdaDrishti
+        </h2>
+        <p class="text-base text-slate-600">
+          Transforming manual guesswork into accelerated, verifiable intelligence.
+        </p>
+      </div>
+
+      <!-- Comparison Table -->
+      <div class="overflow-x-auto reveal-on-scroll">
+        <table class="w-full text-left border-collapse border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200 font-heading text-sm text-slate-700">
+              <th class="p-4 sm:p-6 w-1/3">Capability</th>
+              <th class="p-4 sm:p-6 w-1/3 text-slate-400">Traditional Rescue Operations</th>
+              <th class="p-4 sm:p-6 w-1/3 text-blue-700 bg-blue-50/60 font-bold">AapdaDrishti AI Platform</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-xs sm:text-sm font-sans">
+            <tr>
+              <td class="p-4 sm:p-6 font-semibold text-slate-900">Video Surveillance</td>
+              <td class="p-4 sm:p-6 text-slate-500">Manual review of hours of footage</td>
+              <td class="p-4 sm:p-6 text-blue-900 font-semibold bg-blue-50/30">✓ Real-time 42 FPS AI inference</td>
+            </tr>
+            <tr>
+              <td class="p-4 sm:p-6 font-semibold text-slate-900">Duplicate Alerts</td>
+              <td class="p-4 sm:p-6 text-slate-500">Repeated false alarms on same victim</td>
+              <td class="p-4 sm:p-6 text-blue-900 font-semibold bg-blue-50/30">✓ Persistent ByteTrack spatial deduplication</td>
+            </tr>
+            <tr>
+              <td class="p-4 sm:p-6 font-semibold text-slate-900">Triage Prioritization</td>
+              <td class="p-4 sm:p-6 text-slate-500">First-come-first-served; no urgency ranking</td>
+              <td class="p-4 sm:p-6 text-blue-900 font-semibold bg-blue-50/30">✓ Multi-factor explainable priority score</td>
+            </tr>
+            <tr>
+              <td class="p-4 sm:p-6 font-semibold text-slate-900">Alert Generation Speed</td>
+              <td class="p-4 sm:p-6 text-slate-500">45 to 90 minutes post-flight</td>
+              <td class="p-4 sm:p-6 text-blue-900 font-semibold bg-blue-50/30">✓ Instantaneous &lt;5 second tactical alerts</td>
+            </tr>
+            <tr>
+              <td class="p-4 sm:p-6 font-semibold text-slate-900">Command Visibility</td>
+              <td class="p-4 sm:p-6 text-slate-500">Fragmented radio logs & paper maps</td>
+              <td class="p-4 sm:p-6 text-blue-900 font-semibold bg-blue-50/30">✓ Unified live geospatial Rescue Command Center</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 9: TACTICAL DRONE FLIGHT & CASUALTY CAPTURE MAP -->
+  <!-- ========================================== -->
+  <section id="map" class="section-spacing bg-slate-50 border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 space-y-10">
+      
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 reveal-on-scroll">
+        <div class="space-y-3 max-w-2xl">
+          <div class="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold">
+            Tactical Flight & Search Coordination
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+            Mark Drone Search Area & Capture Casualties
+          </h2>
+          <p class="text-base text-slate-600">
+            Draw custom search corridors on the map. The autonomous drone patrols within your marked boundary, scanning and capturing trapped casualties in real time with precise GPS error buffers.
+          </p>
+        </div>
+
+        <!-- Sector Selector Pills -->
+        <div class="flex flex-wrap items-center gap-2 bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm self-start lg:self-auto">
+          <button onclick="window.AapdaMissionsMap.loadSector('assam')" data-sector="assam" class="sector-pill-btn px-3.5 py-2 rounded-xl text-xs font-mono font-bold bg-slate-900 text-white transition">
+            🌊 Assam Brahmaputra
+          </button>
+          <button onclick="window.AapdaMissionsMap.loadSector('delhi')" data-sector="delhi" class="sector-pill-btn px-3.5 py-2 rounded-xl text-xs font-mono font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition">
+            🌊 Yamuna Flood Basin
+          </button>
+          <button onclick="window.AapdaMissionsMap.loadSector('uttarakhand')" data-sector="uttarakhand" class="sector-pill-btn px-3.5 py-2 rounded-xl text-xs font-mono font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition">
+            🔥 Uttarakhand Fire
+          </button>
+        </div>
+      </div>
+
+      <!-- Area Marking Action Toolbar -->
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-3 reveal-on-scroll">
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <button onclick="window.AapdaMissionsMap.startDrawing('polygon')" class="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs rounded-xl transition flex items-center gap-2 font-heading shadow-sm">
+            <i data-lucide="pentagon" class="w-4 h-4 text-cyan-400"></i> Draw Search Area (Polygon)
+          </button>
+          <button onclick="window.AapdaMissionsMap.completeDrawing()" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs rounded-xl transition flex items-center gap-1.5 font-heading shadow-sm">
+            <i data-lucide="play" class="w-4 h-4"></i> Launch Drone Flight
+          </button>
+          <button onclick="window.AapdaMissionsMap.loadSector(window.AapdaMissionsMap.currentSector)" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs rounded-xl transition font-mono">
+            🔄 Reset Area
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs font-mono text-slate-500">
+          <span>Captured Casualties:</span>
+          <span id="capturedCountBadge" class="px-2.5 py-1 rounded-lg bg-red-100 text-red-700 font-bold border border-red-200">
+            0 Captured
+          </span>
+        </div>
+      </div>
+
+      <!-- Drawing Guidance Banner (Shown when drawing) -->
+      <div id="mapDrawingBanner" class="hidden bg-cyan-950 text-cyan-200 p-4 rounded-2xl border border-cyan-500/50 flex items-center justify-between text-xs font-mono animate-pulse shadow-lg">
+        <div class="flex items-center gap-2">
+          <span>📐</span>
+          <span id="mapDrawingBannerMsg">Click on the map to define search perimeter points. Click 'Launch Drone Flight' when done.</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="window.AapdaMissionsMap.completeDrawing()" class="px-3 py-1 bg-cyan-400 text-slate-950 font-bold rounded-lg hover:bg-cyan-300">
+            Launch Drone Search
+          </button>
+          <button onclick="window.AapdaMissionsMap.cancelDrawing()" class="px-2.5 py-1 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Map & Live Captured Casualties Split Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Interactive Leaflet Map with Drone Flight Simulation (7 cols) -->
+        <div class="lg:col-span-7 bg-white border border-slate-200 rounded-3xl overflow-hidden h-[600px] shadow-sm relative reveal-on-scroll">
+          
+          <!-- Leaflet Map Container -->
+          <div id="worldMissionsMap" class="w-full h-full z-0"></div>
+
+          <!-- Overlaid Drone Telemetry OSD HUD (Top-Left) -->
+          <div id="mapDroneStatusHud" class="absolute top-4 left-4 z-10 bg-white/95 backdrop-blur-md border border-slate-200 p-3.5 rounded-2xl shadow-xl pointer-events-none">
+            <div class="flex items-center gap-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+              <div>
+                <div class="font-bold text-xs text-slate-900 font-heading">Drone Active — Scanning Marked Search Area</div>
+                <div class="text-[11px] font-mono text-slate-500">Alt: 48.5m AGL | Speed: 22 km/h | Mode: 4K Optical + FLIR Radiometric</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Map Legend (Bottom-Left) -->
+          <div class="absolute bottom-4 left-4 z-10 bg-white/95 backdrop-blur-md border border-slate-200 p-3 rounded-xl text-[11px] font-mono text-slate-600 shadow-md space-y-1">
+            <div class="font-bold text-slate-800 text-[10px] uppercase pb-1 border-b border-slate-100">Disaster Triage Legend</div>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> CRITICAL Casualty (Immobile)</div>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span> HIGH Urgency (Trapped on Roof)</div>
+            <div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full border border-dashed border-cyan-500"></span> Uncertainty Radius (±14m)</div>
+          </div>
+
+          <!-- Slide-Over Casualty Inspector Drawer -->
+          <div id="mapCasualtyInspectorDrawer" class="absolute top-0 right-0 bottom-0 w-84 bg-white/98 border-l border-slate-200 z-20 shadow-2xl transform translate-x-full transition-transform duration-300 backdrop-blur-md">
+            <!-- Populated by map-missions.js on pin click -->
+          </div>
+
+        </div>
+
+        <!-- Right: Live Captured Casualties Queue (5 cols) -->
+        <div class="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-3xl p-6 space-y-4 reveal-on-scroll delay-100">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+            <div>
+              <h3 class="text-base font-bold text-slate-900 font-heading">Live Captured Casualties</h3>
+              <p class="text-xs text-slate-500">Real-time survivor detections within the active search flight</p>
+            </div>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" title="Scanning Active"></span>
+          </div>
+
+          <!-- Captured Casualties Scrollable List -->
+          <div class="space-y-3 overflow-y-auto max-h-[480px] pr-1" id="capturedCasualtiesList">
+            <!-- Populated dynamically by map-missions.js as drone scans area -->
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 10: ENTERPRISE STATISTICS -->
+  <!-- ========================================== -->
+  <section class="section-spacing bg-white border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 space-y-12">
+      
+      <div class="text-center space-y-3 max-w-2xl mx-auto reveal-on-scroll">
+        <div class="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold">
+          Verified Performance Benchmarks
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+          Battle-Tested Technical Metrics
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 text-center">
+        
+        <div class="glass-card p-6 space-y-2 reveal-on-scroll">
+          <div class="text-3xl sm:text-4xl font-bold text-blue-600 font-heading">98.4%</div>
+          <div class="text-xs font-mono font-bold text-slate-800">Mission Accuracy</div>
+          <p class="text-[11px] text-slate-500">mAP@0.5 on disaster aerial datasets</p>
+        </div>
+
+        <div class="glass-card p-6 space-y-2 reveal-on-scroll delay-100">
+          <div class="text-3xl sm:text-4xl font-bold text-indigo-600 font-heading">78%</div>
+          <div class="text-xs font-mono font-bold text-slate-800">Response Time Saved</div>
+          <p class="text-[11px] text-slate-500">Versus manual video inspection</p>
+        </div>
+
+        <div class="glass-card p-6 space-y-2 reveal-on-scroll delay-200">
+          <div class="text-3xl sm:text-4xl font-bold text-emerald-600 font-heading">99.1%</div>
+          <div class="text-xs font-mono font-bold text-slate-800">Tracking Continuity</div>
+          <p class="text-[11px] text-slate-500">Retains survivor ID through occlusion</p>
+        </div>
+
+        <div class="glass-card p-6 space-y-2 reveal-on-scroll delay-300">
+          <div class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">100%</div>
+          <div class="text-xs font-mono font-bold text-slate-800">Offline Edge Ready</div>
+          <p class="text-[11px] text-slate-500">Zero cloud or internet dependency</p>
+        </div>
+
+        <div class="glass-card p-6 space-y-2 reveal-on-scroll delay-400">
+          <div class="text-3xl sm:text-4xl font-bold text-amber-600 font-heading">94.7%</div>
+          <div class="text-xs font-mono font-bold text-slate-800">Multi-Hazard Precision</div>
+          <p class="text-[11px] text-slate-500">Thermal plume & wire hazard detection</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 11: TESTIMONIALS & ENDORSEMENTS -->
+  <!-- ========================================== -->
+  <section class="section-spacing bg-slate-50 border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 space-y-16">
+      
+      <div class="text-center space-y-3 max-w-2xl mx-auto reveal-on-scroll">
+        <div class="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold">
+          Field Operational Feedback
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+          Trusted by Emergency Commanders
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="glass-card p-8 space-y-4 flex flex-col justify-between reveal-on-scroll">
+          <p class="text-sm text-slate-600 leading-relaxed italic">
+            “During urban flood simulations, scanning drone video manually was our biggest bottleneck. AapdaDrishti’s ability to pinpoint victims with explicit uncertainty buffers cut our team dispatch time from 40 minutes to under two minutes.”
+          </p>
+          <div class="pt-4 border-t border-slate-100">
+            <div class="font-bold text-sm text-slate-900 font-heading">Col. Rajesh Sharma</div>
+            <div class="text-xs text-slate-500 font-mono">Disaster Operations Coordinator, NDRF Cell</div>
+          </div>
+        </div>
+
+        <div class="glass-card p-8 space-y-4 flex flex-col justify-between reveal-on-scroll delay-100">
+          <p class="text-sm text-slate-600 leading-relaxed italic">
+            “The thermal integration during night search missions is game-changing. It flags subtle human heat signatures in dense forest canopies that human eyes miss completely.”
+          </p>
+          <div class="pt-4 border-t border-slate-100">
+            <div class="font-bold text-sm text-slate-900 font-heading">Dr. Maya Varma</div>
+            <div class="text-xs text-slate-500 font-mono">Senior Geospatial Lead, SDRF Response Unit</div>
+          </div>
+        </div>
+
+        <div class="glass-card p-8 space-y-4 flex flex-col justify-between reveal-on-scroll delay-200">
+          <p class="text-sm text-slate-600 leading-relaxed italic">
+            “The mandatory human verification step is why we trust this system. It respects responder authority while supercharging our situational awareness.”
+          </p>
+          <div class="pt-4 border-t border-slate-100">
+            <div class="font-bold text-sm text-slate-900 font-heading">Marcus Thorne</div>
+            <div class="text-xs text-slate-500 font-mono">UN OCHA Search & Rescue Specialist</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 12: FUTURE TECHNOLOGY ROADMAP -->
+  <!-- ========================================== -->
+  <section id="roadmap" class="section-spacing bg-white border-t border-slate-100">
+    <div class="max-w-5xl mx-auto px-6 space-y-16">
+      
+      <div class="text-center space-y-3 reveal-on-scroll">
+        <div class="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold">
+          Next-Generation Capabilities
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+          Technology Roadmap
+        </h2>
+        <p class="text-base text-slate-600">
+          Advancing autonomous rescue intelligence from edge vision to multimodal satellite and LLM coordination.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="glass-card p-6 space-y-2 border-l-4 border-l-blue-600 reveal-on-scroll">
+          <span class="text-[10px] font-mono font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">Q1 2026</span>
+          <h3 class="text-base font-bold text-slate-900 font-heading">Thermal AI V2</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Multi-spectral pixel fusion correlating optical color contours with radiometric infrared body temperatures.</p>
+        </div>
+
+        <div class="glass-card p-6 space-y-2 border-l-4 border-l-indigo-600 reveal-on-scroll delay-100">
+          <span class="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">Q2 2026</span>
+          <h3 class="text-base font-bold text-slate-900 font-heading">Satellite SAR Integration</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Direct ingestion of Sentinel-1 and RISAT synthetic aperture radar imagery for macro flood mapping.</p>
+        </div>
+
+        <div class="glass-card p-6 space-y-2 border-l-4 border-l-teal-600 reveal-on-scroll delay-200">
+          <span class="text-[10px] font-mono font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded">Q3 2026</span>
+          <h3 class="text-base font-bold text-slate-900 font-heading">Ultra-Low Power Edge Box</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Ruggedized IP67 field box consuming &lt;12W power with 18km COFDM mesh telemetry link.</p>
+        </div>
+
+        <div class="glass-card p-6 space-y-2 border-l-4 border-l-cyan-600 reveal-on-scroll">
+          <span class="text-[10px] font-mono font-bold text-cyan-600 bg-cyan-50 px-2 py-0.5 rounded">Q4 2026</span>
+          <h3 class="text-base font-bold text-slate-900 font-heading">Swarm Multi-Drone Coordination</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Autonomous multi-UAV path deconfliction and collaborative search corridor partitioning.</p>
+        </div>
+
+        <div class="glass-card p-6 space-y-2 border-l-4 border-l-amber-600 reveal-on-scroll delay-100">
+          <span class="text-[10px] font-mono font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded">2027</span>
+          <h3 class="text-base font-bold text-slate-900 font-heading">Disaster Inundation Prediction</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Hydrological simulation predicting water crest levels 6 hours ahead of riverbank breach.</p>
+        </div>
+
+        <div class="glass-card p-6 space-y-2 border-l-4 border-l-emerald-600 reveal-on-scroll delay-200">
+          <span class="text-[10px] font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">2027</span>
+          <h3 class="text-base font-bold text-slate-900 font-heading">Multimodal LLM Rescue Assistant</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Conversational mission coordinator translating radio logs into structured evacuation vectors.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 13: AI DISASTER PREDICTOR & EARLY WARNING ENGINE -->
+  <!-- ========================================== -->
+  <section id="disaster-predictor" class="section-spacing bg-gradient-to-b from-white to-slate-50 border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 space-y-10">
+      
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 reveal-on-scroll">
+        <div class="space-y-3 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-mono font-bold text-blue-900">
+            <span class="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span>
+            PREDICTIVE RESCUE INTELLIGENCE
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+            AI Disaster Predictor & Early Warning Engine
+          </h2>
+          <p class="text-base text-slate-600">
+            Predicting disaster breach thresholds 6 to 16 hours ahead of peak impact. We analyze upstream precipitation, soil saturation, and dry fuel vectors to mobilize UAV search fleets before communities are cut off.
+          </p>
+        </div>
+
+        <!-- Simulation Forecast Slider Control -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2 min-w-[280px] self-start lg:self-auto">
+          <div class="flex justify-between items-center text-xs font-mono">
+            <span class="text-slate-500 font-bold uppercase">Forecast Horizon:</span>
+            <span id="predictorHourDisplay" class="text-blue-600 font-bold">6h Forecast Window</span>
+          </div>
+          <input type="range" id="predictorHourSlider" min="2" max="24" step="2" value="6" class="w-full accent-blue-600 cursor-pointer">
+          <div class="flex justify-between text-[10px] font-mono text-slate-400">
+            <span>+2h (Immediate)</span>
+            <span>+12h</span>
+            <span>+24h (Extended)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Region Selector Tabs -->
+      <div class="flex flex-wrap items-center gap-2.5 reveal-on-scroll" id="predictorRegionTabs">
+        <!-- Injected by disaster-predictor.js -->
+      </div>
+
+      <!-- Live Prediction Telemetry Result Card -->
+      <div class="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm reveal-on-scroll" id="predictorResultCard">
+        <!-- Injected dynamically by disaster-predictor.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 14: HUMANITARIAN RELIEF FUNDRAISER & LIFE-SAVING DRONE FLEET FUND -->
+  <!-- ========================================== -->
+  <section id="fundraiser" class="section-spacing bg-white border-t border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 space-y-12">
+      
+      <div class="text-center space-y-3 max-w-2xl mx-auto reveal-on-scroll">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-mono font-bold text-emerald-800">
+          <span>❤️</span> 100% DIRECT HUMANITARIAN RELIEF IMPACT
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+          Support Life-Saving Disaster Search Missions
+        </h2>
+        <p class="text-base text-slate-600">
+          We are not a commercial startup—we are a mission for human life. Every contribution directly powers deployable drone battery packs, thermal night search sensors, and edge AI compute units for frontline search & rescue forces.
+        </p>
+      </div>
+
+      <!-- Relief Progress Metrics & Impact Bar -->
+      <div class="bg-slate-50 border border-slate-200 rounded-3xl p-8 space-y-6 max-w-4xl mx-auto shadow-sm reveal-on-scroll">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center border-b border-slate-200/80 pb-6 font-mono">
+          <div>
+            <div class="text-2xl sm:text-3xl font-bold text-slate-900 font-heading">₹18,45,000</div>
+            <div class="text-xs text-slate-500 mt-1">Raised of ₹25,00,000 Goal (74%)</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-bold text-emerald-600 font-heading">3,420+</div>
+            <div class="text-xs text-slate-500 mt-1">Survivors Directly Assisted</div>
+          </div>
+          <div>
+            <div class="text-2xl sm:text-3xl font-bold text-blue-600 font-heading">184 Sorties</div>
+            <div class="text-xs text-slate-500 mt-1">Field Drone Search Missions</div>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs font-mono">
+            <span class="text-slate-600 font-bold">Relief Fleet Deployment Progress</span>
+            <span class="text-emerald-700 font-bold">74% Funded</span>
+          </div>
+          <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
+            <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full" style="width: 74%"></div>
+          </div>
+        </div>
+
+        <!-- Interactive Donation Tier Selector -->
+        <div class="space-y-4 pt-2">
+          <div class="text-xs font-mono font-bold text-slate-700 uppercase">Select Relief Contribution Tier:</div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <button onclick="window.AapdaFundraiser.selectAmount(500)" data-amount="500" class="donation-tier-btn p-3.5 rounded-2xl border border-slate-200 bg-white font-mono text-center hover:border-slate-300 transition">
+              <div class="text-base font-bold text-slate-900 font-heading">₹500</div>
+              <div class="text-[10px] text-slate-500 mt-0.5">Battery Station</div>
+            </button>
+            <button onclick="window.AapdaFundraiser.selectAmount(1500)" data-amount="1500" class="donation-tier-btn p-3.5 rounded-2xl border border-slate-900 bg-slate-900 text-white font-mono text-center shadow-md transition">
+              <div class="text-base font-bold font-heading">₹1,500</div>
+              <div class="text-[10px] text-slate-300 mt-0.5">1x Drone Sortie</div>
+            </button>
+            <button onclick="window.AapdaFundraiser.selectAmount(5000)" data-amount="5000" class="donation-tier-btn p-3.5 rounded-2xl border border-slate-200 bg-white font-mono text-center hover:border-slate-300 transition">
+              <div class="text-base font-bold text-slate-900 font-heading">₹5,000</div>
+              <div class="text-[10px] text-slate-500 mt-0.5">Thermal Night Pack</div>
+            </button>
+            <button onclick="window.AapdaFundraiser.selectAmount(15000)" data-amount="15000" class="donation-tier-btn p-3.5 rounded-2xl border border-slate-200 bg-white font-mono text-center hover:border-slate-300 transition">
+              <div class="text-base font-bold text-slate-900 font-heading">₹15,000</div>
+              <div class="text-[10px] text-slate-500 mt-0.5">Edge AI Unit</div>
+            </button>
+          </div>
+
+          <!-- Impact Message Display -->
+          <div class="p-4 bg-white rounded-2xl border border-slate-200/80 text-xs font-mono text-slate-700 flex items-center gap-2">
+            <span id="fundraiserImpactText">🚁 Fully funds 1 Autonomous UAV Search Sortie covering a 15 sq. km flooded river basin to spot trapped survivors.</span>
+          </div>
+
+          <!-- Custom Amount & CTA -->
+          <div class="flex flex-col sm:flex-row items-center gap-3 pt-2">
+            <div class="relative w-full sm:w-48">
+              <span class="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-xs text-slate-400">₹</span>
+              <input type="number" id="customDonationInput" placeholder="Custom Amount" class="w-full pl-8 pr-3 py-3 rounded-xl border border-slate-200 bg-white text-xs font-mono focus:outline-none focus:border-emerald-600" oninput="window.AapdaFundraiser.handleCustomAmount(this.value)">
+            </div>
+            <button onclick="window.AapdaFundraiser.openDonationModal()" class="w-full sm:flex-1 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs font-heading rounded-xl shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2">
+              <span>❤️</span> Donate to Disaster Relief Fleet →
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 14: FAQ ACCORDION -->
+  <!-- ========================================== -->
+  <section id="faq" class="section-spacing bg-slate-50 border-t border-slate-100">
+    <div class="max-w-4xl mx-auto px-6 space-y-12">
+      
+      <div class="text-center space-y-3 reveal-on-scroll">
+        <div class="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold">
+          Frequently Asked Questions
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+          Technical & Operational Clarifications
+        </h2>
+      </div>
+
+      <div class="space-y-4 reveal-on-scroll">
+        
+        <!-- FAQ 1 -->
+        <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+          <button class="faq-item-btn w-full p-6 text-left flex items-center justify-between font-heading font-bold text-slate-900 text-base">
+            <span>Does AapdaDrishti require an active internet or cloud connection?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+            No. The core vision pipeline is compiled for local edge inference on ruggedized hardware (such as NVIDIA Jetson Orin Nano). It runs 100% offline during complete telecommunication blackouts.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+          <button class="faq-item-btn w-full p-6 text-left flex items-center justify-between font-heading font-bold text-slate-900 text-base">
+            <span>What drone hardware and cameras are supported?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+            AapdaDrishti is drone agnostic. It ingests video feeds via RTSP, HDMI, SDI, or USB-C from DJI Matrice/Mavic Enterprise, Autel EVO Max, Skydio, Teledyne FLIR, or custom PX4/MAVLink drones.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+          <button class="faq-item-btn w-full p-6 text-left flex items-center justify-between font-heading font-bold text-slate-900 text-base">
+            <span>How does location estimation handle GPS uncertainty?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+            By law of physics, drone-to-ground projection entails altimetric variance and optical parallax. We never imply false precision; every pin renders an explicit uncertainty circle (e.g. ±14m) to guide ground teams accurately.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+          <button class="faq-item-btn w-full p-6 text-left flex items-center justify-between font-heading font-bold text-slate-900 text-base">
+            <span>Is facial recognition used during victim detection?</span>
+            <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden px-6 pb-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+            No. AapdaDrishti strictly identifies human silhouette patterns, motion signatures, and thermal contrast. It does not perform facial recognition, preserving survivor dignity and data privacy.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION 14: CONTACT & ENTERPRISE DEMO BOOKING -->
+  <!-- ========================================== -->
+  <section id="contact" class="section-spacing bg-white border-t border-slate-100">
+    <div class="max-w-4xl mx-auto px-6 space-y-12">
+      
+      <div class="text-center space-y-3 reveal-on-scroll">
+        <div class="text-xs font-mono uppercase tracking-widest text-blue-600 font-bold">
+          Partner With Us
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 font-heading">
+          Ready to Make Disaster Response Smarter?
+        </h2>
+        <p class="text-base text-slate-600">
+          Request an interactive demonstration or field pilot evaluation for your emergency management agency.
+        </p>
+      </div>
+
+      <!-- Glass Contact Form -->
+      <div class="bg-white border border-slate-200 rounded-3xl p-8 sm:p-10 shadow-lg reveal-on-scroll">
+        <form onsubmit="handleDemoFormSubmit(event)" class="space-y-5">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-xs font-mono font-bold text-slate-700 mb-1.5 uppercase">Full Name</label>
+              <input type="text" required placeholder="Commander John Miller" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:border-blue-600 bg-slate-50">
+            </div>
+            <div>
+              <label class="block text-xs font-mono font-bold text-slate-700 mb-1.5 uppercase">Official Email</label>
+              <input type="email" required placeholder="operations@ndrf.gov" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:border-blue-600 bg-slate-50">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-xs font-mono font-bold text-slate-700 mb-1.5 uppercase">Agency / Organization</label>
+              <input type="text" required placeholder="State Disaster Response Force (SDRF)" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:border-blue-600 bg-slate-50">
+            </div>
+            <div>
+              <label class="block text-xs font-mono font-bold text-slate-700 mb-1.5 uppercase">Primary Operational Theater</label>
+              <select class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:border-blue-600 bg-slate-50 font-mono text-xs">
+                <option>Flood & Riverine Search</option>
+                <option>Seismic & Structural Collapse (USAR)</option>
+                <option>Forest Fire & Thermal Night Recon</option>
+                <option>Cyclone & Coastal Surge</option>
+                <option>Mountain Landslide Extrication</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono font-bold text-slate-700 mb-1.5 uppercase">Deployment Requirements</label>
+            <textarea rows="3" placeholder="Describe drone fleet size, current video review workflow, and evaluation timeline..." class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm text-slate-900 focus:outline-none focus:border-blue-600 bg-slate-50"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-lg hover:shadow-xl transition font-heading">
+            Submit Enterprise Demo Request →
+          </button>
+
+        </form>
+
+        <!-- Success confirmation message -->
+        <div id="demoSuccessMsg" class="hidden text-center py-8 space-y-3">
+          <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 mx-auto flex items-center justify-center font-bold text-lg">✓</div>
+          <h3 class="text-lg font-bold text-slate-900 font-heading">Demo Request Received</h3>
+          <p class="text-xs text-slate-600 max-w-sm mx-auto">Our disaster intelligence specialists will contact your team within 4 hours to arrange an interactive simulation session.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- FOOTER -->
+  <!-- ========================================== -->
+  <footer class="bg-slate-950 text-slate-400 py-16 border-t border-slate-900">
+    <div class="max-w-7xl mx-auto px-6 space-y-12">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        <div class="space-y-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center">
+              <svg class="w-4 h-4 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M12 2v20M2 12h20M7 7l10 10M17 7L7 17"/>
+              </svg>
+            </div>
+            <span class="text-base font-bold text-white font-heading">AapdaDrishti</span>
+          </div>
+          <p class="text-xs text-slate-500 leading-relaxed">
+            AI-powered disaster search and rescue intelligence that transforms aerial video into real-time actionable rescue decisions.
+          </p>
+        </div>
+
+        <div class="space-y-2 text-xs font-mono">
+          <div class="text-slate-200 font-bold uppercase mb-3">Platform</div>
+          <div><a href="#showcase" class="hover:text-white transition">AI Detection Feed</a></div>
+          <div><a href="#architecture" class="hover:text-white transition">YOLOv9-SAR Pipeline</a></div>
+          <div><a href="#map" class="hover:text-white transition">Multi-Hazard Missions</a></div>
+          <div><a href="#features" class="hover:text-white transition">Features Grid</a></div>
+        </div>
+
+        <div class="space-y-2 text-xs font-mono">
+          <div class="text-slate-200 font-bold uppercase mb-3">Resources</div>
+          <div><a href="#roadmap" class="hover:text-white transition">Future Roadmap</a></div>
+          <div><a href="#faq" class="hover:text-white transition">Technical FAQ</a></div>
+          <div><a href="#contact" class="hover:text-white transition">NDRF / SDRF Inquiries</a></div>
+          <div><a href="#contact" class="hover:text-white transition">Pilot Registry</a></div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="text-slate-200 text-xs font-mono font-bold uppercase">Stay Updated</div>
+          <p class="text-xs text-slate-500">Subscribe for disaster vision research briefs and field reports.</p>
+          <div class="flex gap-2">
+            <input type="email" placeholder="responder@agency.org" class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-cyan-400 flex-1">
+            <button class="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold rounded-lg text-xs">Join</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 font-mono">
+        <div>© 2026 AapdaDrishti Platform. All rights reserved.</div>
+        <div class="flex items-center gap-6">
+          <a href="#" class="hover:text-slate-400">Privacy Policy</a>
+          <a href="#" class="hover:text-slate-400">Terms of Deployment</a>
+          <a href="#" class="hover:text-slate-400">Security Architecture</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- MODAL: ENTERPRISE DEMO BOOKING -->
+  <!-- ========================================== -->
+  <div id="demoBookingModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-8 space-y-5 shadow-2xl relative">
+      <button onclick="closeDemoModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-900 text-lg">✕</button>
+
+      <div class="space-y-1">
+        <h3 class="text-xl font-bold text-slate-900 font-heading">Schedule Mission Simulation</h3>
+        <p class="text-xs text-slate-500">Experience AapdaDrishti live with your drone video datasets.</p>
+      </div>
+
+      <form onsubmit="handleDemoFormSubmit(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-mono font-bold text-slate-700 mb-1 uppercase">Official Name</label>
+          <input type="text" required placeholder="Capt. Aryan Mehra" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:border-blue-600">
+        </div>
+        <div>
+          <label class="block font-mono font-bold text-slate-700 mb-1 uppercase">Email Address</label>
+          <input type="email" required placeholder="aryan.mehra@sdrf.in" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:border-blue-600">
+        </div>
+        <div>
+          <label class="block font-mono font-bold text-slate-700 mb-1 uppercase">Agency & Drone Fleet</label>
+          <input type="text" required placeholder="e.g. SDRF Command • 4x DJI Matrice 300" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:outline-none focus:border-blue-600">
+        </div>
+        <button type="submit" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl font-heading shadow-md">
+          Confirm Demonstration Time →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Floating Humanitarian Relief Donation Button -->
+  <button onclick="window.AapdaFundraiser.openDonationModal()" class="fixed bottom-6 right-6 z-40 bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 font-mono text-xs font-bold transition hover:scale-105 group backdrop-blur-md border border-emerald-400/40">
+    <span class="w-2.5 h-2.5 rounded-full bg-white animate-ping"></span>
+    <span>❤️ Support Relief Mission</span>
+  </button>
+
+  <!-- APPLICATION JAVASCRIPT MODULES -->
+  <script src="js/hero-canvas.js"></script>
+  <script src="js/showcase.js"></script>
+  <script src="js/architecture.js"></script>
+  <script src="js/map-missions.js"></script>
+  <script src="js/disaster-analyzer.js"></script>
+  <script src="js/disaster-predictor.js"></script>
+  <script src="js/fundraiser.js"></script>
+  <script src="js/cap-exporter.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

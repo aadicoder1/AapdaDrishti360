@@ -1,0 +1,534 @@
+[
+  {
+    "people_count": 2,
+    "track_ids": [
+      1,
+      2
+    ],
+    "confidence": 0.76,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 52.8,
+    "priority_label": "HIGH",
+    "priority_breakdown": {
+      "confidence_pts": 11.4,
+      "group_pts": 10,
+      "exposure_pts": 6.0,
+      "time_pts": 2.7,
+      "hazard_pts": 22.7,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group1_2_20260905_024408.jpg",
+    "estimated_lat": 30.284198,
+    "estimated_lon": 78.982045,
+    "error_radius_m": 10.0,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 1,
+    "track_ids": [
+      10
+    ],
+    "confidence": 0.6,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 41.7,
+    "priority_label": "MEDIUM",
+    "priority_breakdown": {
+      "confidence_pts": 9.0,
+      "group_pts": 0,
+      "exposure_pts": 6.0,
+      "time_pts": 1.7,
+      "hazard_pts": 25.0,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group10_20260905_024420.jpg",
+    "estimated_lat": 30.284261,
+    "estimated_lon": 78.982213,
+    "error_radius_m": 15.4,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 2,
+    "track_ids": [
+      14,
+      15
+    ],
+    "confidence": 0.52,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 49.3,
+    "priority_label": "MEDIUM",
+    "priority_breakdown": {
+      "confidence_pts": 7.9,
+      "group_pts": 10,
+      "exposure_pts": 6.0,
+      "time_pts": 0.4,
+      "hazard_pts": 25.0,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group14_15_20260905_024423.jpg",
+    "estimated_lat": 30.284261,
+    "estimated_lon": 78.982214,
+    "error_radius_m": 15.3,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 1,
+    "track_ids": [
+      7
+    ],
+    "confidence": 0.81,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 53.0,
+    "priority_label": "HIGH",
+    "priority_breakdown": {
+      "confidence_pts": 12.2,
+      "group_pts": 0,
+      "exposure_pts": 6.0,
+      "time_pts": 9.8,
+      "hazard_pts": 25.0,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group7_20260905_024442.jpg",
+    "estimated_lat": 30.284462,
+    "estimated_lon": 78.98207,
+    "error_radius_m": 11.6,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 1,
+    "track_ids": [
+      22
+    ],
+    "confidence": 0.82,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 43.5,
+    "priority_label": "MEDIUM",
+    "priority_breakdown": {
+      "confidence_pts": 12.2,
+      "group_pts": 0,
+      "exposure_pts": 6.0,
+      "time_pts": 0.3,
+      "hazard_pts": 25.0,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group22_20260905_024446.jpg",
+    "estimated_lat": 30.284481,
+    "estimated_lon": 78.982174,
+    "error_radius_m": 9.6,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 1,
+    "track_ids": [
+      30
+    ],
+    "confidence": 0.46,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 38.2,
+    "priority_label": "MEDIUM",
+    "priority_breakdown": {
+      "confidence_pts": 6.9,
+      "group_pts": 0,
+      "exposure_pts": 6.0,
+      "time_pts": 0.3,
+      "hazard_pts": 25.0,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group30_20260905_024512.jpg",
+    "estimated_lat": 30.284673,
+    "estimated_lon": 78.982245,
+    "error_radius_m": 10.0,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 2,
+    "track_ids": [
+      36,
+      38
+    ],
+    "confidence": 0.78,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 52.2,
+    "priority_label": "HIGH",
+    "priority_breakdown": {
+      "confidence_pts": 11.6,
+      "group_pts": 10,
+      "exposure_pts": 6.0,
+      "time_pts": 0.4,
+      "hazard_pts": 24.2,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group36_38_20260905_024514.jpg",
+    "estimated_lat": 30.284726,
+    "estimated_lon": 78.982408,
+    "error_radius_m": 15.3,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 1,
+    "track_ids": [
+      33
+    ],
+    "confidence": 0.78,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 45.4,
+    "priority_label": "MEDIUM",
+    "priority_breakdown": {
+      "confidence_pts": 11.7,
+      "group_pts": 0,
+      "exposure_pts": 6.0,
+      "time_pts": 2.7,
+      "hazard_pts": 25.0,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group33_20260905_024520.jpg",
+    "estimated_lat": 30.284788,
+    "estimated_lon": 78.982358,
+    "error_radius_m": 13.4,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 1,
+    "track_ids": [
+      49
+    ],
+    "confidence": 0.79,
+    "exposure_risk": 0.3,
+    "hazard_flags": [],
+    "priority_score": 22.3,
+    "priority_label": "LOW",
+    "priority_breakdown": {
+      "confidence_pts": 11.8,
+      "group_pts": 0,
+      "exposure_pts": 6.0,
+      "time_pts": 4.5,
+      "hazard_pts": 0,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group49_20260905_024619.jpg",
+    "estimated_lat": 30.285136,
+    "estimated_lon": 78.982697,
+    "error_radius_m": 14.8,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 4,
+    "track_ids": [
+      50,
+      51,
+      52,
+      67
+    ],
+    "confidence": 0.69,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 77.8,
+    "priority_label": "CRITICAL",
+    "priority_breakdown": {
+      "confidence_pts": 10.4,
+      "group_pts": 30,
+      "exposure_pts": 6.0,
+      "time_pts": 8.0,
+      "hazard_pts": 23.4,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group50_51_52_67_20260905_024629.jpg",
+    "estimated_lat": 30.285225,
+    "estimated_lon": 78.982599,
+    "error_radius_m": 9.8,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 1,
+    "track_ids": [
+      65
+    ],
+    "confidence": 0.66,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 42.8,
+    "priority_label": "MEDIUM",
+    "priority_breakdown": {
+      "confidence_pts": 9.9,
+      "group_pts": 0,
+      "exposure_pts": 6.0,
+      "time_pts": 2.8,
+      "hazard_pts": 24.1,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group65_20260905_024630.jpg",
+    "estimated_lat": 30.285235,
+    "estimated_lon": 78.982729,
+    "error_radius_m": 14.5,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 1,
+    "track_ids": [
+      78
+    ],
+    "confidence": 0.73,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 40.5,
+    "priority_label": "MEDIUM",
+    "priority_breakdown": {
+      "confidence_pts": 11.0,
+      "group_pts": 0,
+      "exposure_pts": 6.0,
+      "time_pts": 0.6,
+      "hazard_pts": 22.9,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group78_20260905_024640.jpg",
+    "estimated_lat": 30.2853,
+    "estimated_lon": 78.98258,
+    "error_radius_m": 11.4,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 1,
+    "track_ids": [
+      88
+    ],
+    "confidence": 0.53,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 32.5,
+    "priority_label": "MEDIUM",
+    "priority_breakdown": {
+      "confidence_pts": 8.0,
+      "group_pts": 0,
+      "exposure_pts": 6.0,
+      "time_pts": 0.6,
+      "hazard_pts": 17.9,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group88_20260905_024657.jpg",
+    "estimated_lat": 30.285384,
+    "estimated_lon": 78.982701,
+    "error_radius_m": 8.7,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 1,
+    "track_ids": [
+      107
+    ],
+    "confidence": 0.44,
+    "exposure_risk": 0.22,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 32.8,
+    "priority_label": "MEDIUM",
+    "priority_breakdown": {
+      "confidence_pts": 6.5,
+      "group_pts": 0,
+      "exposure_pts": 4.4,
+      "time_pts": 1.5,
+      "hazard_pts": 20.4,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group107_20260905_024729.jpg",
+    "estimated_lat": 30.285734,
+    "estimated_lon": 78.982948,
+    "error_radius_m": 17.8,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 1,
+    "track_ids": [
+      114
+    ],
+    "confidence": 0.66,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 41.9,
+    "priority_label": "MEDIUM",
+    "priority_breakdown": {
+      "confidence_pts": 9.9,
+      "group_pts": 0,
+      "exposure_pts": 6.0,
+      "time_pts": 1.0,
+      "hazard_pts": 25.0,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group114_20260905_024818.jpg",
+    "estimated_lat": 30.286053,
+    "estimated_lon": 78.982896,
+    "error_radius_m": 17.3,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 1,
+    "track_ids": [
+      118
+    ],
+    "confidence": 0.85,
+    "exposure_risk": 0.1,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 40.1,
+    "priority_label": "MEDIUM",
+    "priority_breakdown": {
+      "confidence_pts": 12.8,
+      "group_pts": 0,
+      "exposure_pts": 2.0,
+      "time_pts": 0.3,
+      "hazard_pts": 25.0,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group118_20260905_024820.jpg",
+    "estimated_lat": 30.286147,
+    "estimated_lon": 78.9829,
+    "error_radius_m": 20.9,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  },
+  {
+    "people_count": 2,
+    "track_ids": [
+      113,
+      117
+    ],
+    "confidence": 0.77,
+    "exposure_risk": 0.3,
+    "hazard_flags": [
+      "flood_water"
+    ],
+    "priority_score": 54.9,
+    "priority_label": "HIGH",
+    "priority_breakdown": {
+      "confidence_pts": 11.6,
+      "group_pts": 10,
+      "exposure_pts": 6.0,
+      "time_pts": 2.3,
+      "hazard_pts": 25.0,
+      "immobility_pts": 0
+    },
+    "is_still": false,
+    "stillness_seconds": 0.0,
+    "evidence_file": "evidence/case_group113_117_20260905_024822.jpg",
+    "estimated_lat": 30.286075,
+    "estimated_lon": 78.983064,
+    "error_radius_m": 14.5,
+    "faces_blurred": false,
+    "disaster_type": "flood",
+    "retention_note": "human_verification_required_before_dispatch",
+    "location_source": "simulated_drone_coordinates_anchored_near_Rudraprayag"
+  }
+]
