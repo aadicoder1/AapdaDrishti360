@@ -197,6 +197,7 @@ export default function App() {
             borderBottom: "1px solid #1E293B",
           }}
         >
+          
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <span style={{ color: "#475569" }}>|</span>
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
@@ -211,7 +212,7 @@ export default function App() {
                 }}
               />
               <span style={{ color: isConnected ? "#34D399" : "#FCA5A5", fontWeight: 700 }}>
-                {isConnected ? "🟢 Live Backend Connected (:8000)" : "🔴 Backend Offline (Cache Active)"}
+                {isConnected ? "🟢 Live Backend Connected (:8000)" : "🔴 Backend Offline (Cache Active) _____ [ Reconnecting to server cold start can take up to 40s ]"}
               </span>
             </div>
           </div>
